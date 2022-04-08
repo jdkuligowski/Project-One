@@ -19,7 +19,7 @@ body {
   width: 700px;
   border: 2px solid orange;
   margin: 0 auto;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.6);
 }
 
 .content {
@@ -118,6 +118,13 @@ h2 {
 
 .grid div.hyena {
   background-image: url('../Images/hyena.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.grid div.zazu {
+  background-image: url('../Images/zazu.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
