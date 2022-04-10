@@ -129,3 +129,10 @@ h2 {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.grid div.elephant {
+  background-image: url('../Images/elephanty.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

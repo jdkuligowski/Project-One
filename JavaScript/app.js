@@ -14,6 +14,16 @@ function init() {
   // Timing variables
   let obstacleTimer
 
+  // Score Traking
+  const livesBox = document.querySelector('#lives-val')
+  const scoreBox = document.querySelector('#score-val')
+  const levelBox = document.querySelector('#level-val')
+  const highBox = document.querySelector('#high-val')
+
+  let livesVal = livesBox.innerText = 10
+  let scoreVal = scoreBox.innerText = 0
+  let levelVal = levelBox.innerText = 1
+  let highVal = highBox.innerText = 0
 
 
   function createGrid() {
@@ -27,24 +37,17 @@ function init() {
     addSimba(simbaStartPosition)
     addTimon(timonStartPosition)
     addPumbaa(pumbaaStartPosition)
-    addWater(26); addWater(27); addWater(28); addWater(29); addWater(30)
-    addWater(31); addWater(32); addWater(33); addWater(34); addWater(35)
-    addWater(36); addWater(37); addWater(38); addWater(65); addWater(66)
-    addWater(67); addWater(68); addWater(69); addWater(70); addWater(71)
-    addWater(72); addWater(73); addWater(74); addWater(75); addWater(76)
-    addWater(77)
-    addHyena(hyenaStartPosition)
+    waterRow1(); waterRow2()
+    
     addScar(scarStartPosition)
     addWildebeest(wildeStartPosition)
-    addZazu(26); addZazu(29); addZazu(32); addZazu(35); addZazu(38); 
+    addZazu(26); addZazu(29); addZazu(32); addZazu(35); addZazu(38)
+    addZazu(66); addZazu(69); addZazu(73); addZazu(76)
+    addElephant(elephantStartPosition)
+    addHyena()
+    moveHyena()
   }
 
-  // function waterFeatures () {
-  //   for (let i = width * 2; i < (width * 3) - 1; i++) {
-  //     cells[i].classList.add(waterClass)
-  //   } 
-  // }
-  // waterFeatures()
 
   // Character setup
   const simbaClass = 'simba'
@@ -61,10 +64,10 @@ function init() {
   let pumbaaCurrentPosition = pumbaaStartPosition
 
   const waterClass = 'water'
-  let waterPosition = []
 
   const hyenaClass = 'hyena'
-  const hyenaStartPosition = 51
+  // let hyenaStartPosition = [39, 42, 45, 48]
+  const hyenaStartPosition = 39
   let hyenaCurrentPosition = hyenaStartPosition
 
   const scarClass = 'scar'
@@ -77,6 +80,9 @@ function init() {
 
   const zazuClass = 'zazu'
 
+  const elephantClass = 'elephant'
+  const elephantStartPosition = 58
+  let elephantCurrentPosition = elephantStartPosition
 
 
   // * Functions for adding players and to help them move
@@ -93,24 +99,42 @@ function init() {
     cells[position].classList.add(pumbaaClass)
   }
 
-  function addWater(position) {
-    cells[position].classList.add(waterClass)
+  function waterRow1() {
+    for (let i = width * 2; i < (width * 3); i++) {
+      cells[i].classList.add(waterClass)
+    }
   }
 
-  // Hyena movement function
+  function waterRow2() {
+    for (let i = width * 5; i < (width * 6); i++) {
+      cells[i].classList.add(waterClass)
+    }
+  }
+
+  const newHyenaPositions = [39, 42, 45, 48]
+  console.log(newHyenaPositions[2])
+  console.log(newHyenaPositions.length)
   function addHyena() {
+    for (let i = 0; i < 4; i++) {
+      cells[newHyenaPositions[i]].classList.add(hyenaClass)
+    }
+  }
+
+
+  // Hyena movement function
+  function moveHyena() {
     cells[hyenaCurrentPosition].classList.add(hyenaClass)
     console.log(hyenaCurrentPosition)
     obstacleTimer = setInterval(() => {
-      if (hyenaCurrentPosition <= width * 3) {
+      if (hyenaCurrentPosition > 50) {
         cells[hyenaCurrentPosition].classList.remove(hyenaClass)
-        hyenaCurrentPosition = hyenaStartPosition + 1
+        hyenaCurrentPosition = hyenaStartPosition - 1
       } else {
         cells[hyenaCurrentPosition].classList.remove(hyenaClass)
-        hyenaCurrentPosition--
+        hyenaCurrentPosition++
         cells[hyenaCurrentPosition].classList.add(hyenaClass)
       }
-    }, 900)
+    }, 700)
   }
 
   function addScar() {
@@ -125,7 +149,7 @@ function init() {
         scarCurrentPosition--
         cells[scarCurrentPosition].classList.add(scarClass)
       }
-    }, 1000)
+    }, 700)
   }
 
   function addWildebeest() {
@@ -140,7 +164,22 @@ function init() {
         wildeCurrentPosition--
         cells[wildeCurrentPosition].classList.add(wildeClass)
       }
-    }, 800)
+    }, 700)
+  }
+
+  function addElephant() {
+    cells[elephantCurrentPosition].classList.add(elephantClass)
+    console.log(elephantCurrentPosition)
+    obstacleTimer = setInterval(() => {
+      if (elephantCurrentPosition <= width * 4) {
+        cells[elephantCurrentPosition].classList.remove(elephantClass)
+        elephantCurrentPosition = 65
+      } else {
+        cells[elephantCurrentPosition].classList.remove(elephantClass)
+        elephantCurrentPosition--
+        cells[elephantCurrentPosition].classList.add(elephantClass)
+      }
+    }, 700)
   }
 
   function addZazu(position) {
@@ -166,7 +205,36 @@ function init() {
     cells[position].classList.remove(hyenaClass)
   }
 
+  let collisionDetection
 
+  //Collision function
+  // function collisions() {
+  //   const obstacleArray = [27, 28, 30, 31, 33, 34, 36, 37, 65, 67, 68, 70, 71, 72, 74, 75, 77,
+  //     wildeCurrentPosition, elephantCurrentPosition, hyenaCurrentPosition, scarCurrentPosition]
+  //   collisionDetection = setInterval(() => {
+  //     if (obstacleArray.includes(simbaCurrentPosition)) {
+  //       alert('life lost!')
+  //       simbaCurrentPosition = simbaStartPosition
+  //       livesVal = livesVal - 1
+  //       livesBox.innerText = livesVal
+  //       removeSimba(simbaCurrentPosition)
+  //     } else if (obstacleArray.includes(timonCurrentPosition)) {
+  //       alert('life lost!')
+  //       timonCurrentPosition = timonStartPosition
+  //       livesVal = livesVal - 1
+  //       livesBox.innerText = livesVal
+  //     } else if (obstacleArray.includes(pumbaaCurrentPosition)) {
+  //       alert('life lost!')
+  //       pumbaaCurrentPosition = pumbaaStartPosition
+  //       livesVal = livesVal - 1
+  //       livesBox.innerText = livesVal
+  //     } else {
+  //       console.log('continue playing')
+  //     }
+  //   }, 100)
+  // }
+
+  // collisions()
 
 
 
@@ -179,87 +247,114 @@ function init() {
     const down = 40
     const left = 37
     const right = 39
-
+    const obstacleArray = [27, 28, 30, 31, 33, 34, 36, 37, 65, 67, 68, 70, 71, 72, 74, 75, 77,
+      wildeCurrentPosition, elephantCurrentPosition, hyenaCurrentPosition, scarCurrentPosition]
     removeSimba(simbaCurrentPosition)
     removeTimon(timonCurrentPosition)
     removePumbaa(pumbaaCurrentPosition)
-    if (simbaCurrentPosition > width) {
+    // First conditional statement determines which character is being used
+    if (obstacleArray.includes(simbaCurrentPosition)) {
+      alert('life lost!')
+      simbaCurrentPosition = simbaStartPosition
+      livesVal = livesVal - 1
+      livesBox.innerText = livesVal
+    } else if (obstacleArray.includes(timonCurrentPosition)) {
+      alert('life lost!')
+      timonCurrentPosition = timonStartPosition
+      livesVal = livesVal - 1
+      livesBox.innerText = livesVal
+    } else if (obstacleArray.includes(pumbaaCurrentPosition)) {
+      alert('life lost!')
+      pumbaaCurrentPosition = pumbaaStartPosition
+      livesVal = livesVal - 1
+      livesBox.innerText = livesVal
+    } else {
 
-      if (key === left && simbaCurrentPosition % width !== 0) {
-        simbaCurrentPosition--
 
-      } else if (key === right && simbaCurrentPosition % width !== width - 1) {
-        simbaCurrentPosition++
+      if (simbaCurrentPosition > width) {
 
-      } else if (key === up && (simbaCurrentPosition >= width)) {
-        simbaCurrentPosition -= width
+        // Second conditional statement sends character back to the start if they crash
 
-      } else if (key === down && (simbaCurrentPosition + width <= cellCount - 1)) {
-        simbaCurrentPosition += width
-      } else {
-        console.log('invalid key movemenet')
-      }
-    } else if (timonCurrentPosition > width) {
+        // Third conditional statement determins the movement of the current character around the grid
+        if (key === left && simbaCurrentPosition % width !== 0) {
+          simbaCurrentPosition--
 
-      if (key === left && timonCurrentPosition % width !== 0) {
-        timonCurrentPosition--
+        } else if (key === right && simbaCurrentPosition % width !== width - 1) {
+          simbaCurrentPosition++
 
-      } else if (key === right && timonCurrentPosition % width !== width - 1) {
-        timonCurrentPosition++
+        } else if (key === up && (simbaCurrentPosition >= width)) {
+          simbaCurrentPosition -= width
+          scoreVal = scoreVal + 10
+          scoreBox.innerText = scoreVal
 
-      } else if (key === up && (timonCurrentPosition >= width)) {
-        timonCurrentPosition -= width
+        } else if (key === down && (simbaCurrentPosition + width <= cellCount - 1)) {
+          simbaCurrentPosition += width
+        } else {
+          console.log('invalid key movemenet')
+        }
+      } else if (timonCurrentPosition > width) {
 
-      } else if (key === down && (timonCurrentPosition + width <= cellCount - 1)) {
-        timonCurrentPosition += width
-      } else {
-        console.log('invalid key movemenet')
-      }
-    } else if (pumbaaCurrentPosition > width) {
+        if (key === left && timonCurrentPosition % width !== 0) {
+          timonCurrentPosition--
 
-      if (key === left && pumbaaCurrentPosition % width !== 0) {
-        pumbaaCurrentPosition--
+        } else if (key === right && timonCurrentPosition % width !== width - 1) {
+          timonCurrentPosition++
 
-      } else if (key === right && pumbaaCurrentPosition % width !== width - 1) {
-        pumbaaCurrentPosition++
+        } else if (key === up && (timonCurrentPosition >= width)) {
+          timonCurrentPosition -= width
+          scoreVal = scoreVal + 10
+          scoreBox.innerText = scoreVal
 
-      } else if (key === up && (pumbaaCurrentPosition >= width)) {
-        pumbaaCurrentPosition -= width
+        } else if (key === down && (timonCurrentPosition + width <= cellCount - 1)) {
+          timonCurrentPosition += width
+        } else {
+          console.log('invalid key movemenet')
+        }
+      } else if (pumbaaCurrentPosition > width) {
 
-      } else if (key === down && (pumbaaCurrentPosition + width <= cellCount - 1)) {
-        pumbaaCurrentPosition += width
-      } else {
-        console.log('invalid key movemenet')
+        if (key === left && pumbaaCurrentPosition % width !== 0) {
+          pumbaaCurrentPosition--
+
+        } else if (key === right && pumbaaCurrentPosition % width !== width - 1) {
+          pumbaaCurrentPosition++
+
+        } else if (key === up && (pumbaaCurrentPosition >= width)) {
+          pumbaaCurrentPosition -= width
+          scoreVal = scoreVal + 10
+          scoreBox.innerText = scoreVal
+
+        } else if (key === down && (pumbaaCurrentPosition + width <= cellCount - 1)) {
+          pumbaaCurrentPosition += width
+        } else {
+          console.log('invalid key movemenet')
+        }
       }
     } addSimba(simbaCurrentPosition)
     addTimon(timonCurrentPosition)
     addPumbaa(pumbaaCurrentPosition)
   }
 
+
+
   document.addEventListener('keydown', handleKeyDown)
+  // document.addEventListener('keyup', collisions)
+
+
+  // Sounds
 
 
 
+  const themeTune = document.querySelector('#theme')
+  console.log(themeTune)
+  const startGame = document.querySelector('#start')
 
+  function playAudio() {
+    themeTune.src = '../Sounds/theme.wav'
+    themeTune.play()
+    console.log('playing theme')
+  }
 
-
-  // Function to start the game and get the animals moving across the page
-  // function startGame() {
-  //   addHyena(hyenaStartPosition)
-  // hyenaCurrentPosition--
-  // obstacleTimer = setInterval(() => {
-  //   hyenaCurrentPosition --
-  //   removeHyena(hyenaCurrentPosition)
-  // },2000)
-  // }
-
-  // startGame()
-
-
-
-
-
-
+  //startGame.addEventListener('click',playAudio)
 
 
   createGrid()
