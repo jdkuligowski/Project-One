@@ -19,7 +19,7 @@ body {
   width: 700px;
   border: 2px solid orange;
   margin: 0 auto;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.75);
 }
 
 .content {
@@ -57,6 +57,20 @@ h2 {
   color: beige;
 }
 
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  color: beige;
+}
+
+button {
+  height: 20px;
+}
+
 /* Specific grid styling to use in JS */
 
 .grid {
@@ -66,13 +80,12 @@ h2 {
   justify-content: center;
   width: 700px;
   height: 400px;
-
 }
 
 .grid div {
   border-top: 0px solid white;
   border-bottom: 0px solid white;
-  width: calc(100% / 13);
+  width: calc(100% / 12);
   height: calc(400px/ 8);
 }
 

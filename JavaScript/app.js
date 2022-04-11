@@ -6,7 +6,7 @@ function init() {
   console.log(grid)
 
   // Grid Creation
-  const width = 13
+  const width = 12
   const height = 8
   const cellCount = width * height
   const cells = []
@@ -26,6 +26,8 @@ function init() {
   let highVal = highBox.innerText = 0
 
 
+
+  // * Section 2: Create a grid and add the game characters to this * //
   function createGrid() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
@@ -34,70 +36,61 @@ function init() {
       cells.push(cell)
 
     }
+
+    waterRow1(); waterRow2()
+    addHyena()
+    addScar()
+    addWildebeest()
+    addZazu()
+    addElephant()
     addSimba(simbaStartPosition)
     addTimon(timonStartPosition)
     addPumbaa(pumbaaStartPosition)
-    waterRow1(); waterRow2()
-    
-    addScar(scarStartPosition)
-    addWildebeest(wildeStartPosition)
-    addZazu(26); addZazu(29); addZazu(32); addZazu(35); addZazu(38)
-    addZazu(66); addZazu(69); addZazu(73); addZazu(76)
-    addElephant(elephantStartPosition)
-    addHyena()
-    moveHyena()
   }
 
 
-  // Character setup
+  // * Section 2: Add in characters that will be used to move around the board * //
+  // Add simba 
   const simbaClass = 'simba'
   console.log(simbaClass)
-  const simbaStartPosition = 100
+  const simbaStartPosition = 92
   let simbaCurrentPosition = simbaStartPosition
 
-  const timonClass = 'timon'
-  const timonStartPosition = 97
-  let timonCurrentPosition = timonStartPosition
-
-  const pumbaaClass = 'pumbaa'
-  const pumbaaStartPosition = 94
-  let pumbaaCurrentPosition = pumbaaStartPosition
-
-  const waterClass = 'water'
-
-  const hyenaClass = 'hyena'
-  // let hyenaStartPosition = [39, 42, 45, 48]
-  const hyenaStartPosition = 39
-  let hyenaCurrentPosition = hyenaStartPosition
-
-  const scarClass = 'scar'
-  const scarStartPosition = 22
-  let scarCurrentPosition = scarStartPosition
-
-  const wildeClass = 'wildebeest'
-  const wildeStartPosition = 89
-  let wildeCurrentPosition = wildeStartPosition
-
-  const zazuClass = 'zazu'
-
-  const elephantClass = 'elephant'
-  const elephantStartPosition = 58
-  let elephantCurrentPosition = elephantStartPosition
-
-
-  // * Functions for adding players and to help them move
-  // Add simba function
   function addSimba(position) {
     cells[position].classList.add(simbaClass)
   }
-  // Add timon function
+
+  // Add timon 
+  const timonClass = 'timon'
+  const timonStartPosition = 89
+  let timonCurrentPosition = timonStartPosition
+
   function addTimon(position) {
     cells[position].classList.add(timonClass)
   }
-  // Add Pumbaa function
+
+  // Add Pumbaa 
+  const pumbaaClass = 'pumbaa'
+  const pumbaaStartPosition = 86
+  let pumbaaCurrentPosition = pumbaaStartPosition
+
   function addPumbaa(position) {
     cells[position].classList.add(pumbaaClass)
   }
+
+  // Add Zazu
+  const zazuClass = 'zazu'
+  const zazuPositions = [25, 28, 31, 34, 60, 63, 66, 69]
+
+  function addZazu() {
+    for (let i = 0; i < zazuPositions.length; i++) {
+      cells[zazuPositions[i]].classList.add(zazuClass)
+    }
+  }
+
+  // * Section 2b: Add in obstacles that will cause player to lose a life * //
+  // Add Water
+  const waterClass = 'water'
 
   function waterRow1() {
     for (let i = width * 2; i < (width * 3); i++) {
@@ -111,82 +104,135 @@ function init() {
     }
   }
 
-  const newHyenaPositions = [39, 42, 45, 48]
-  console.log(newHyenaPositions[2])
-  console.log(newHyenaPositions.length)
+  // Add Hyenas and move them around
+  const hyenaClass = 'hyena'
+  const startingHyenas = [36, 39, 42, 45]
+  let currentHyenaPositions = startingHyenas
+  let updatedHyena = currentHyenaPositions
+
   function addHyena() {
     for (let i = 0; i < 4; i++) {
-      cells[newHyenaPositions[i]].classList.add(hyenaClass)
+      cells[currentHyenaPositions[i]].classList.add(hyenaClass)
     }
-  }
-
-
-  // Hyena movement function
-  function moveHyena() {
-    cells[hyenaCurrentPosition].classList.add(hyenaClass)
-    console.log(hyenaCurrentPosition)
     obstacleTimer = setInterval(() => {
-      if (hyenaCurrentPosition > 50) {
-        cells[hyenaCurrentPosition].classList.remove(hyenaClass)
-        hyenaCurrentPosition = hyenaStartPosition - 1
-      } else {
-        cells[hyenaCurrentPosition].classList.remove(hyenaClass)
-        hyenaCurrentPosition++
-        cells[hyenaCurrentPosition].classList.add(hyenaClass)
+      if (updatedHyena[3] === 47) {
+        for (let i = 0; i < 4; i++) {
+          cells[updatedHyena[i]].classList.remove(hyenaClass)
+        }
+        updatedHyena = startingHyenas
+        for (let i = 0; i < 4; i++) {
+          cells[startingHyenas[i]].classList.add(hyenaClass)
+        }
+      } else if (updatedHyena[3] < 47) {
+        for (let i = 0; i < 4; i++) {
+          cells[updatedHyena[i]].classList.remove(hyenaClass)
+        }
+        updatedHyena = updatedHyena.map((val) => val + 1)
+        for (let i = 0; i < 4; i++) {
+          cells[updatedHyena[i]].classList.add(hyenaClass)
+        }
       }
-    }, 700)
+    }, 1000)
   }
+
+
+  // Add Scar and move him around
+  const scarClass = 'scar'
+  const scarStarting = [23, 20, 17, 14]
+  let currentScarPosition = scarStarting
+  let updatedScar = currentScarPosition
 
   function addScar() {
-    cells[scarCurrentPosition].classList.add(scarClass)
-    console.log(scarCurrentPosition)
+    for (let i = 0; i < 4; i++) {
+      cells[currentScarPosition[i]].classList.add(scarClass)
+    }
     obstacleTimer = setInterval(() => {
-      if (scarCurrentPosition <= width) {
-        cells[scarCurrentPosition].classList.remove(scarClass)
-        scarCurrentPosition = 26
-      } else {
-        cells[scarCurrentPosition].classList.remove(scarClass)
-        scarCurrentPosition--
-        cells[scarCurrentPosition].classList.add(scarClass)
+      if (updatedScar[3] === 12) {
+        for (let i = 0; i < 4; i++) {
+          cells[updatedScar[i]].classList.remove(scarClass)
+        }
+        updatedScar = scarStarting
+        for (let i = 0; i < 4; i++) {
+          cells[updatedScar[i]].classList.add(scarClass)
+        }
+      } else if (updatedScar[3] > 12) {
+        for (let i = 0; i < 4; i++) {
+          cells[updatedScar[i]].classList.remove(scarClass)
+        }
+        updatedScar = updatedScar.map((val) => val - 1)
+        for (let i = 0; i < 4; i++) {
+          cells[updatedScar[i]].classList.add(scarClass)
+        }
       }
-    }, 700)
+    }, 1000)
   }
+
+  // Add Wildebeests and allow them to move around
+
+  const wildeClass = 'wildebeest'
+  const wildeStarting = [83, 81, 79, 77, 75, 73]
+  let wildeCurrentPosition = wildeStarting
+  let updatedWilde = wildeCurrentPosition
 
   function addWildebeest() {
-    cells[wildeCurrentPosition].classList.add(wildeClass)
-    console.log(wildeCurrentPosition)
+    for (let i = 0; i < 6; i++) {
+      cells[wildeCurrentPosition[i]].classList.add(wildeClass)
+    }
     obstacleTimer = setInterval(() => {
-      if (wildeCurrentPosition <= width * 6) {
-        cells[wildeCurrentPosition].classList.remove(wildeClass)
-        wildeCurrentPosition = 91
-      } else {
-        cells[wildeCurrentPosition].classList.remove(wildeClass)
-        wildeCurrentPosition--
-        cells[wildeCurrentPosition].classList.add(wildeClass)
+      if (updatedWilde[5] === 72) {
+        for (let i = 0; i < 6; i++) {
+          cells[updatedWilde[i]].classList.remove(wildeClass)
+        }
+        updatedWilde = wildeStarting
+        for (let i = 0; i < 6; i++) {
+          cells[updatedWilde[i]].classList.add(wildeClass)
+        }
+      } else if (updatedWilde[5] > 72) {
+        for (let i = 0; i < 6; i++) {
+          cells[updatedWilde[i]].classList.remove(wildeClass)
+        }
+        updatedWilde = updatedWilde.map((val) => val - 1)
+        for (let i = 0; i < 6; i++) {
+          cells[updatedWilde[i]].classList.add(wildeClass)
+        }
       }
-    }, 700)
+    }, 1000)
   }
+
+  // Add Elephants and allow them to move around
+
+  const elephantClass = 'elephant'
+  const elephantStarting = [59, 56, 53, 50]
+  let elephantCurrentPosition = elephantStarting
+  let updatedElephant = elephantCurrentPosition
 
   function addElephant() {
-    cells[elephantCurrentPosition].classList.add(elephantClass)
-    console.log(elephantCurrentPosition)
+    for (let i = 0; i < 4; i++) {
+      cells[elephantCurrentPosition[i]].classList.add(elephantClass)
+    }
     obstacleTimer = setInterval(() => {
-      if (elephantCurrentPosition <= width * 4) {
-        cells[elephantCurrentPosition].classList.remove(elephantClass)
-        elephantCurrentPosition = 65
-      } else {
-        cells[elephantCurrentPosition].classList.remove(elephantClass)
-        elephantCurrentPosition--
-        cells[elephantCurrentPosition].classList.add(elephantClass)
+      if (updatedElephant[3] === 48) {
+        for (let i = 0; i < 4; i++) {
+          cells[updatedElephant[i]].classList.remove(elephantClass)
+        }
+        updatedElephant = elephantStarting
+        for (let i = 0; i < 4; i++) {
+          cells[updatedElephant[i]].classList.add(elephantClass)
+        }
+      } else if (updatedElephant[3] > 48) {
+        for (let i = 0; i < 4; i++) {
+          cells[updatedElephant[i]].classList.remove(elephantClass)
+        }
+        updatedElephant = updatedElephant.map((val) => val - 1)
+        for (let i = 0; i < 4; i++) {
+          cells[updatedElephant[i]].classList.add(elephantClass)
+        }
       }
-    }, 700)
+    }, 1000)
   }
 
-  function addZazu(position) {
-    cells[position].classList.add(zazuClass)
-  }
 
-  // * Functions for removing players from previous square, so only one image appears
+  // * Section 3: Functions for removing players from previous square, so only one image appears
   // Add simba function
   function removeSimba(position) {
     cells[position].classList.remove(simbaClass)
@@ -200,24 +246,22 @@ function init() {
     cells[position].classList.remove(pumbaaClass)
   }
 
-  // Remove Hyena function
-  function removeHyena(position) {
-    cells[position].classList.remove(hyenaClass)
-  }
 
-  let collisionDetection
-
-  //Collision function
   // function collisions() {
-  //   const obstacleArray = [27, 28, 30, 31, 33, 34, 36, 37, 65, 67, 68, 70, 71, 72, 74, 75, 77,
-  //     wildeCurrentPosition, elephantCurrentPosition, hyenaCurrentPosition, scarCurrentPosition]
-  //   collisionDetection = setInterval(() => {
+  //   let obstacleArray = [24, 26, 27, 29, 30, 32, 33, 35, 61,
+  //     62, 64, 65, 67, 68, 70, 71].concat(wildeCurrentPosition).
+  //     concat(currentScarPosition).concat(elephantCurrentPosition).concat(currentHyenaPositions)
+  //   console.log(obstacleArray)
+  //   removeSimba(simbaCurrentPosition)
+  //   removeTimon(timonCurrentPosition)
+  //   removePumbaa(pumbaaCurrentPosition)
+  //   obstacleTimer = setInterval(() => {
+  //     // First conditional statement determines which character is being used
   //     if (obstacleArray.includes(simbaCurrentPosition)) {
   //       alert('life lost!')
   //       simbaCurrentPosition = simbaStartPosition
   //       livesVal = livesVal - 1
   //       livesBox.innerText = livesVal
-  //       removeSimba(simbaCurrentPosition)
   //     } else if (obstacleArray.includes(timonCurrentPosition)) {
   //       alert('life lost!')
   //       timonCurrentPosition = timonStartPosition
@@ -228,18 +272,17 @@ function init() {
   //       pumbaaCurrentPosition = pumbaaStartPosition
   //       livesVal = livesVal - 1
   //       livesBox.innerText = livesVal
-  //     } else {
-  //       console.log('continue playing')
   //     }
   //   }, 100)
   // }
 
-  // collisions()
 
 
 
 
 
+
+  // * Section 4: Enable movement around the board, award points and lose lifes for collisions 
   // Moving characters around
   function handleKeyDown(event) {
     const key = event.keyCode
@@ -247,8 +290,10 @@ function init() {
     const down = 40
     const left = 37
     const right = 39
-    const obstacleArray = [27, 28, 30, 31, 33, 34, 36, 37, 65, 67, 68, 70, 71, 72, 74, 75, 77,
-      wildeCurrentPosition, elephantCurrentPosition, hyenaCurrentPosition, scarCurrentPosition]
+    let obstacleArray = [24, 26, 27, 29, 30, 32, 33, 35, 61,
+      62, 64, 65, 67, 68, 70, 71].concat(wildeCurrentPosition).
+      concat(currentScarPosition).concat(elephantCurrentPosition).concat(currentHyenaPositions)
+    console.log(obstacleArray)
     removeSimba(simbaCurrentPosition)
     removeTimon(timonCurrentPosition)
     removePumbaa(pumbaaCurrentPosition)
@@ -326,13 +371,14 @@ function init() {
         } else if (key === down && (pumbaaCurrentPosition + width <= cellCount - 1)) {
           pumbaaCurrentPosition += width
         } else {
-          console.log('invalid key movemenet')
+          simbaCurrentPosition = simbaStartPosition
         }
-      }
-    } addSimba(simbaCurrentPosition)
+      } 
+    }addSimba(simbaCurrentPosition)
     addTimon(timonCurrentPosition)
     addPumbaa(pumbaaCurrentPosition)
   }
+
 
 
 
@@ -344,17 +390,30 @@ function init() {
 
 
 
+
+
+
   const themeTune = document.querySelector('#theme')
   console.log(themeTune)
   const startGame = document.querySelector('#start')
 
+
+
   function playAudio() {
     themeTune.src = '../Sounds/theme.wav'
+    console.log('started playing theme')
     themeTune.play()
-    console.log('playing theme')
+    themeTune.currentTime = 0
+    int = setInterval(() => {
+      if (themeTune.currentTime > 9) {
+        themeTune.pause()
+      } themeTune.play()
+    }, 10000)
+    console.log('stopped playing theme')
   }
 
-  //startGame.addEventListener('click',playAudio)
+
+  startGame.addEventListener('click', playAudio)
 
 
   createGrid()
