@@ -3,21 +3,18 @@
 body, html {
   height: 100%;
   width: 100%;
+  /* opacity: 1; */
 }
 
 body {
   box-sizing: border-box;
   margin: 0 auto;
   text-align: center;
-  background-image: url('../Images/pride_rock_no_animals.jpeg');
+  background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('../Images/pride_rock_no_animals.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
-}
-
-.wrap {
-  background: none;
+  /* opacity: 1; */
 }
 
 .content, #instructions, main, footer {
@@ -100,11 +97,15 @@ button {
 
 /* Images */
 .grid div.simba {
-  background-image: url('../Images/simba-2.png');
+  background-image: url("../Images/simba-2.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
+/* img {
+  background-size: cover;
+  position: absolute;
+} */
 
 .grid div.timon {
   background-image: url('../Images/timon-3.png');
@@ -159,24 +160,25 @@ button {
 /* * Modals * */
 /* Page load modal to start game  */
 .modal-load {
-  /* background-image: url(../Images/simba-running.png);
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../Images/pride_rock_no_animals.jpeg');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; */
-  background: rgba(0,0,0,0.8);
-  width: 100%;
-  height: 100%;
+  background-repeat: no-repeat;
+  width: 75%;
+  height: 80%;
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 7%;
+  left: 13%;
   bottom: 0;
-  border-radius: 30px;
-  
+  border-radius: 85px;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
   margin: 0 auto;
+  height: 75%
 }
 
 .modal-title, .modal-detail {
@@ -186,6 +188,7 @@ button {
 .modal-title {
   margin: 20px 0px;
   text-transform: uppercase;
+  font-size: 35px;
 }
 
 .modal-detail {
@@ -193,8 +196,13 @@ button {
   margin: 20px 50px;
 }
 
+.modal-image img {
+  height: 500px;
+}
+
 #play {
-  width: 100px;
+  width: 150px;
   align-self: center;
+  padding: 10px 10px;
 }
 

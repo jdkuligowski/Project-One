@@ -55,9 +55,14 @@ function init() {
   console.log(simbaClass)
   const simbaStartPosition = 92
   let simbaCurrentPosition = simbaStartPosition
+  // const simbaImage = document.createElement('img')
+  // simbaImage.src = '../Images/simba-2.png'
+  //console.log(simba)
+  
 
   function addSimba(position) {
     cells[position].classList.add(simbaClass)
+    // simbaPosition.appendChild(simbaImage)
   }
 
   // Add timon 
@@ -109,6 +114,7 @@ function init() {
   const startingHyenas = [36, 39, 42, 45]
   let currentHyenaPositions = startingHyenas
   let updatedHyena = currentHyenaPositions
+  let hyenaTimer
 
   function addHyena() {
     for (let i = 0; i < 4; i++) {
@@ -116,9 +122,9 @@ function init() {
     }
   }
 
-  function moveHyena(){
+  function moveHyena() {
     collisions()
-    obstacleTimer = setInterval(() => {
+    hyenaTimer = setInterval(() => {
       if (updatedHyena[3] === 47) {
         for (let i = 0; i < 4; i++) {
           cells[updatedHyena[i]].classList.remove(hyenaClass)
@@ -136,7 +142,7 @@ function init() {
           cells[updatedHyena[i]].classList.add(hyenaClass)
         }
       }
-    }, 2000)
+    }, 1500)
   }
 
 
@@ -145,7 +151,7 @@ function init() {
   const scarStarting = [23, 20, 17, 14]
   let currentScarPosition = scarStarting
   let updatedScar = currentScarPosition
-
+  let scarTimer
   function addScar() {
     for (let i = 0; i < 4; i++) {
       cells[currentScarPosition[i]].classList.add(scarClass)
@@ -154,7 +160,7 @@ function init() {
 
   function moveScar() {
     collisions()
-    obstacleTimer = setInterval(() => {
+    scarTimer = setInterval(() => {
       if (updatedScar[3] === 12) {
         for (let i = 0; i < 4; i++) {
           cells[updatedScar[i]].classList.remove(scarClass)
@@ -172,43 +178,44 @@ function init() {
           cells[updatedScar[i]].classList.add(scarClass)
         }
       }
-    }, 2000)
+    }, 1500)
   }
 
   // Add Wildebeests and allow them to move around
 
   const wildeClass = 'wildebeest'
-  const wildeStarting = [77, 75, 73]
+  const wildeStarting = [83 ,81 ,79 ,77, 75, 73]
   let wildeCurrentPosition = wildeStarting
   let updatedWilde = wildeCurrentPosition
+  let wildeTimer
 
   function addWildebeest() {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 6; i++) {
       cells[wildeCurrentPosition[i]].classList.add(wildeClass)
     }
   }
 
   function moveWildebeest() {
     collisions()
-    obstacleTimer = setInterval(() => {
-      if (updatedWilde[2] === 72) {
-        for (let i = 0; i < 3; i++) {
+    wildeTimer = setInterval(() => {
+      if (updatedWilde[5] === 72) {
+        for (let i = 0; i < 6; i++) {
           cells[updatedWilde[i]].classList.remove(wildeClass)
         }
         updatedWilde = wildeStarting
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 6; i++) {
           cells[updatedWilde[i]].classList.add(wildeClass)
         }
-      } else if (updatedWilde[2] > 72) {
-        for (let i = 0; i < 3; i++) {
+      } else if (updatedWilde[5] > 72) {
+        for (let i = 0; i < 6; i++) {
           cells[updatedWilde[i]].classList.remove(wildeClass)
         }
         updatedWilde = updatedWilde.map((val) => val - 1)
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 6; i++) {
           cells[updatedWilde[i]].classList.add(wildeClass)
         }
       }
-    }, 2000)
+    }, 1500)
   }
 
   // Add Elephants and allow them to move around
@@ -217,6 +224,7 @@ function init() {
   const elephantStarting = [59, 56, 53, 50]
   let elephantCurrentPosition = elephantStarting
   let updatedElephant = elephantCurrentPosition
+  let elephantTimer
 
   function addElephant() {
     for (let i = 0; i < 4; i++) {
@@ -226,7 +234,7 @@ function init() {
 
   function moveElephant() {
     collisions()
-    obstacleTimer = setInterval(() => {
+    elephantTimer = setInterval(() => {
       if (updatedElephant[3] === 48) {
         for (let i = 0; i < 4; i++) {
           cells[updatedElephant[i]].classList.remove(elephantClass)
@@ -244,7 +252,7 @@ function init() {
           cells[updatedElephant[i]].classList.add(elephantClass)
         }
       }
-    }, 2000)
+    }, 1500)
   }
 
   function moveEnemies() {
@@ -269,13 +277,14 @@ function init() {
   }
 
   // const waterObstacles = 
+  let collisionTimer
 
+  
   function collisions() {
-    const obstacleArray = [24, 26, 27, 29, 30, 32, 33, 35, 61,
-      62, 64, 65, 67, 68, 70, 71].concat(updatedWilde).
-      concat(updatedScar).concat(updatedElephant).concat(updatedHyena)
-    console.log(obstacleArray)
-    obstacleTimer = setInterval(() => {
+    collisionTimer = setInterval(() => {
+      const obstacleArray = [24, 26, 27, 29, 30, 32, 33, 35, 61,
+        62, 64, 65, 67, 68, 70, 71].concat(updatedWilde).
+        concat(updatedScar).concat(updatedElephant).concat(updatedHyena)
       //First conditional statement determines which character is being used
       if (obstacleArray.includes(simbaCurrentPosition)) {
         alert('life lost!')
@@ -301,7 +310,6 @@ function init() {
       }
     }, 100)
   }
-
 
 
 
@@ -394,11 +402,12 @@ function init() {
   const loadingModal = document.querySelector('.modal-load')
   console.log(loadingModal)
   const playButton = document.getElementById('play')
-  const docBody = document.querySelector('.wrap')
+  const docBody = document.querySelector('body')
 
   function loadModal() {
     loadingModal.style.display = 'flex'
-    docBody.style.background = 'rgba(0,0,0,0.75)'
+    //docBody.style.background = 0.5
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url(../Images/pride_rock_no_animals.jpeg)'
     console.log('display changed')
   }
 
@@ -427,33 +436,36 @@ function init() {
 
 
   // Function to loop around the overall theme tune
-  // function playTheme() {
-  //   themeTune.src = '../Sounds/theme.wav'
-  //   console.log('started playing theme')
-  //   themeTune.play()
-  //   themeTune.currentTime = 0
-  //   int = setInterval(() => {
-  //     if (themeTune.currentTime > 9) {
-  //       themeTune.pause()
-  //     } themeTune.play()
-  //   }, 10000)
-  //   console.log('stopped playing theme')
-  // }
+  function playTheme() {
+    themeTune.src = '../Sounds/theme-tune.m4a'
+    console.log('started playing theme')
+    themeTune.play()
+    themeTune.currentTime = 0
+    console.log(themeTune.currentTime)
+    int = setInterval(() => {
+      if (themeTune.currentTime > 12) {
+        themeTune.pause()
+       } //themeTune.play()
+      console.log(themeTune.currentTime)
+    }, 12000)
+    console.log('stopped playing theme')
+  }
 
 
-  //startGame.addEventListener('click', playTheme)
+  playButton.addEventListener('click', playTheme)
 
   const HyenaLaugh = document.querySelector('#hyena-laugh')
 
-  function hyenaSound() {
-    HyenaLaugh.src = '../Sounds/hyena-laugh.wav'
-    console.log('hyena laugh')
-    if (currentHyenaPositions.includes(simbaCurrentPosition)) {
-      HyenaLaugh.play()
-    }
-  }
+  // function hyenaSound() {
+  //   HyenaLaugh.src = '../Sounds/hyena-laugh.wav'
+  //   console.log('hyena laugh')
+  //   HyenaLaugh.play()
+  //   }
 
- 
+
+  // playButton.addEventListener('click', hyenaSound)
+
+
 
 
 
