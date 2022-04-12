@@ -13,6 +13,11 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  
+}
+
+.wrap {
+  background: none;
 }
 
 .content, #instructions, main, footer {
@@ -96,56 +101,100 @@ button {
 /* Images */
 .grid div.simba {
   background-image: url('../Images/simba-2.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .grid div.timon {
   background-image: url('../Images/timon-3.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .grid div.pumbaa {
   background-image: url('../Images/pumba.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .grid div.scar {
   background-image: url('../Images/scar.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .grid div.wildebeest {
   background-image: url('../Images/wildebeest.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .grid div.hyena {
   background-image: url('../Images/hyena.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .grid div.zazu {
   background-image: url('../Images/zazu.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .grid div.elephant {
   background-image: url('../Images/elephanty.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
+
+
+/* * Modals * */
+/* Page load modal to start game  */
+.modal-load {
+  /* background-image: url(../Images/simba-running.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+  background: rgba(0,0,0,0.8);
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 30px;
+  
+}
+
+.modal-content {
+  margin: 0 auto;
+}
+
+.modal-title, .modal-detail {
+  color: ivory;
+}
+
+.modal-title {
+  margin: 20px 0px;
+  text-transform: uppercase;
+}
+
+.modal-detail {
+  color: ivory;
+  margin: 20px 50px;
+}
+
+#play {
+  width: 100px;
+  align-self: center;
+}
+

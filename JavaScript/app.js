@@ -36,7 +36,6 @@ function init() {
       cells.push(cell)
 
     }
-
     waterRow1(); waterRow2()
     addHyena()
     addScar()
@@ -46,6 +45,7 @@ function init() {
     addSimba(simbaStartPosition)
     addTimon(timonStartPosition)
     addPumbaa(pumbaaStartPosition)
+    collisions()
   }
 
 
@@ -114,6 +114,10 @@ function init() {
     for (let i = 0; i < 4; i++) {
       cells[currentHyenaPositions[i]].classList.add(hyenaClass)
     }
+  }
+
+  function moveHyena(){
+    collisions()
     obstacleTimer = setInterval(() => {
       if (updatedHyena[3] === 47) {
         for (let i = 0; i < 4; i++) {
@@ -132,7 +136,7 @@ function init() {
           cells[updatedHyena[i]].classList.add(hyenaClass)
         }
       }
-    }, 1000)
+    }, 2000)
   }
 
 
@@ -146,6 +150,10 @@ function init() {
     for (let i = 0; i < 4; i++) {
       cells[currentScarPosition[i]].classList.add(scarClass)
     }
+  }
+
+  function moveScar() {
+    collisions()
     obstacleTimer = setInterval(() => {
       if (updatedScar[3] === 12) {
         for (let i = 0; i < 4; i++) {
@@ -164,39 +172,43 @@ function init() {
           cells[updatedScar[i]].classList.add(scarClass)
         }
       }
-    }, 1000)
+    }, 2000)
   }
 
   // Add Wildebeests and allow them to move around
 
   const wildeClass = 'wildebeest'
-  const wildeStarting = [83, 81, 79, 77, 75, 73]
+  const wildeStarting = [77, 75, 73]
   let wildeCurrentPosition = wildeStarting
   let updatedWilde = wildeCurrentPosition
 
   function addWildebeest() {
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 3; i++) {
       cells[wildeCurrentPosition[i]].classList.add(wildeClass)
     }
+  }
+
+  function moveWildebeest() {
+    collisions()
     obstacleTimer = setInterval(() => {
-      if (updatedWilde[5] === 72) {
-        for (let i = 0; i < 6; i++) {
+      if (updatedWilde[2] === 72) {
+        for (let i = 0; i < 3; i++) {
           cells[updatedWilde[i]].classList.remove(wildeClass)
         }
         updatedWilde = wildeStarting
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 3; i++) {
           cells[updatedWilde[i]].classList.add(wildeClass)
         }
-      } else if (updatedWilde[5] > 72) {
-        for (let i = 0; i < 6; i++) {
+      } else if (updatedWilde[2] > 72) {
+        for (let i = 0; i < 3; i++) {
           cells[updatedWilde[i]].classList.remove(wildeClass)
         }
         updatedWilde = updatedWilde.map((val) => val - 1)
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 3; i++) {
           cells[updatedWilde[i]].classList.add(wildeClass)
         }
       }
-    }, 1000)
+    }, 2000)
   }
 
   // Add Elephants and allow them to move around
@@ -208,8 +220,12 @@ function init() {
 
   function addElephant() {
     for (let i = 0; i < 4; i++) {
-      cells[elephantCurrentPosition[i]].classList.add(elephantClass)
+      cells[elephantStarting[i]].classList.add(elephantClass)
     }
+  }
+
+  function moveElephant() {
+    collisions()
     obstacleTimer = setInterval(() => {
       if (updatedElephant[3] === 48) {
         for (let i = 0; i < 4; i++) {
@@ -228,9 +244,15 @@ function init() {
           cells[updatedElephant[i]].classList.add(elephantClass)
         }
       }
-    }, 1000)
+    }, 2000)
   }
 
+  function moveEnemies() {
+    moveElephant()
+    moveHyena()
+    moveScar()
+    moveWildebeest()
+  }
 
   // * Section 3: Functions for removing players from previous square, so only one image appears
   // Add simba function
@@ -246,35 +268,39 @@ function init() {
     cells[position].classList.remove(pumbaaClass)
   }
 
+  // const waterObstacles = 
 
-  // function collisions() {
-  //   let obstacleArray = [24, 26, 27, 29, 30, 32, 33, 35, 61,
-  //     62, 64, 65, 67, 68, 70, 71].concat(wildeCurrentPosition).
-  //     concat(currentScarPosition).concat(elephantCurrentPosition).concat(currentHyenaPositions)
-  //   console.log(obstacleArray)
-  //   removeSimba(simbaCurrentPosition)
-  //   removeTimon(timonCurrentPosition)
-  //   removePumbaa(pumbaaCurrentPosition)
-  //   obstacleTimer = setInterval(() => {
-  //     // First conditional statement determines which character is being used
-  //     if (obstacleArray.includes(simbaCurrentPosition)) {
-  //       alert('life lost!')
-  //       simbaCurrentPosition = simbaStartPosition
-  //       livesVal = livesVal - 1
-  //       livesBox.innerText = livesVal
-  //     } else if (obstacleArray.includes(timonCurrentPosition)) {
-  //       alert('life lost!')
-  //       timonCurrentPosition = timonStartPosition
-  //       livesVal = livesVal - 1
-  //       livesBox.innerText = livesVal
-  //     } else if (obstacleArray.includes(pumbaaCurrentPosition)) {
-  //       alert('life lost!')
-  //       pumbaaCurrentPosition = pumbaaStartPosition
-  //       livesVal = livesVal - 1
-  //       livesBox.innerText = livesVal
-  //     }
-  //   }, 100)
-  // }
+  function collisions() {
+    const obstacleArray = [24, 26, 27, 29, 30, 32, 33, 35, 61,
+      62, 64, 65, 67, 68, 70, 71].concat(updatedWilde).
+      concat(updatedScar).concat(updatedElephant).concat(updatedHyena)
+    console.log(obstacleArray)
+    obstacleTimer = setInterval(() => {
+      //First conditional statement determines which character is being used
+      if (obstacleArray.includes(simbaCurrentPosition)) {
+        alert('life lost!')
+        removeSimba(simbaCurrentPosition)
+        simbaCurrentPosition = simbaStartPosition
+        addSimba(simbaCurrentPosition)
+        livesVal = livesVal - 1
+        livesBox.innerText = livesVal
+      } else if (obstacleArray.includes(timonCurrentPosition)) {
+        alert('life lost!')
+        removeTimon(timonCurrentPosition)
+        timonCurrentPosition = timonStartPosition
+        addTimon(timonCurrentPosition)
+        livesVal = livesVal - 1
+        livesBox.innerText = livesVal
+      } else if (obstacleArray.includes(pumbaaCurrentPosition)) {
+        alert('life lost!')
+        removePumbaa(pumbaaCurrentPosition)
+        pumbaaCurrentPosition = pumbaaStartPosition
+        addPumbaa(pumbaaCurrentPosition)
+        livesVal = livesVal - 1
+        livesBox.innerText = livesVal
+      }
+    }, 100)
+  }
 
 
 
@@ -290,95 +316,72 @@ function init() {
     const down = 40
     const left = 37
     const right = 39
-    let obstacleArray = [24, 26, 27, 29, 30, 32, 33, 35, 61,
-      62, 64, 65, 67, 68, 70, 71].concat(wildeCurrentPosition).
-      concat(currentScarPosition).concat(elephantCurrentPosition).concat(currentHyenaPositions)
-    console.log(obstacleArray)
     removeSimba(simbaCurrentPosition)
     removeTimon(timonCurrentPosition)
     removePumbaa(pumbaaCurrentPosition)
-    // First conditional statement determines which character is being used
-    if (obstacleArray.includes(simbaCurrentPosition)) {
-      alert('life lost!')
-      simbaCurrentPosition = simbaStartPosition
-      livesVal = livesVal - 1
-      livesBox.innerText = livesVal
-    } else if (obstacleArray.includes(timonCurrentPosition)) {
-      alert('life lost!')
-      timonCurrentPosition = timonStartPosition
-      livesVal = livesVal - 1
-      livesBox.innerText = livesVal
-    } else if (obstacleArray.includes(pumbaaCurrentPosition)) {
-      alert('life lost!')
-      pumbaaCurrentPosition = pumbaaStartPosition
-      livesVal = livesVal - 1
-      livesBox.innerText = livesVal
-    } else {
+    collisions()
+    //  Second conditional statement determines which character is being used
+    if (simbaCurrentPosition > width) {
 
 
-      if (simbaCurrentPosition > width) {
 
-        // Second conditional statement sends character back to the start if they crash
+      // Third conditional statement determins the movement of the current character around the grid
+      if (key === left && simbaCurrentPosition % width !== 0) {
+        simbaCurrentPosition--
 
-        // Third conditional statement determins the movement of the current character around the grid
-        if (key === left && simbaCurrentPosition % width !== 0) {
-          simbaCurrentPosition--
+      } else if (key === right && simbaCurrentPosition % width !== width - 1) {
+        simbaCurrentPosition++
 
-        } else if (key === right && simbaCurrentPosition % width !== width - 1) {
-          simbaCurrentPosition++
+      } else if (key === up && (simbaCurrentPosition >= width)) {
+        simbaCurrentPosition -= width
+        scoreVal = scoreVal + 10
+        scoreBox.innerText = scoreVal
 
-        } else if (key === up && (simbaCurrentPosition >= width)) {
-          simbaCurrentPosition -= width
-          scoreVal = scoreVal + 10
-          scoreBox.innerText = scoreVal
+      } else if (key === down && (simbaCurrentPosition + width <= cellCount - 1)) {
+        simbaCurrentPosition += width
+      } else {
+        console.log('invalid key movemenet')
+      }
+    } else if (timonCurrentPosition > width) {
 
-        } else if (key === down && (simbaCurrentPosition + width <= cellCount - 1)) {
-          simbaCurrentPosition += width
-        } else {
-          console.log('invalid key movemenet')
-        }
-      } else if (timonCurrentPosition > width) {
+      if (key === left && timonCurrentPosition % width !== 0) {
+        timonCurrentPosition--
 
-        if (key === left && timonCurrentPosition % width !== 0) {
-          timonCurrentPosition--
+      } else if (key === right && timonCurrentPosition % width !== width - 1) {
+        timonCurrentPosition++
 
-        } else if (key === right && timonCurrentPosition % width !== width - 1) {
-          timonCurrentPosition++
+      } else if (key === up && (timonCurrentPosition >= width)) {
+        timonCurrentPosition -= width
+        scoreVal = scoreVal + 10
+        scoreBox.innerText = scoreVal
 
-        } else if (key === up && (timonCurrentPosition >= width)) {
-          timonCurrentPosition -= width
-          scoreVal = scoreVal + 10
-          scoreBox.innerText = scoreVal
+      } else if (key === down && (timonCurrentPosition + width <= cellCount - 1)) {
+        timonCurrentPosition += width
+      } else {
+        console.log('invalid key movemenet')
+      }
+    } else if (pumbaaCurrentPosition > width) {
 
-        } else if (key === down && (timonCurrentPosition + width <= cellCount - 1)) {
-          timonCurrentPosition += width
-        } else {
-          console.log('invalid key movemenet')
-        }
-      } else if (pumbaaCurrentPosition > width) {
+      if (key === left && pumbaaCurrentPosition % width !== 0) {
+        pumbaaCurrentPosition--
 
-        if (key === left && pumbaaCurrentPosition % width !== 0) {
-          pumbaaCurrentPosition--
+      } else if (key === right && pumbaaCurrentPosition % width !== width - 1) {
+        pumbaaCurrentPosition++
 
-        } else if (key === right && pumbaaCurrentPosition % width !== width - 1) {
-          pumbaaCurrentPosition++
+      } else if (key === up && (pumbaaCurrentPosition >= width)) {
+        pumbaaCurrentPosition -= width
+        scoreVal = scoreVal + 10
+        scoreBox.innerText = scoreVal
 
-        } else if (key === up && (pumbaaCurrentPosition >= width)) {
-          pumbaaCurrentPosition -= width
-          scoreVal = scoreVal + 10
-          scoreBox.innerText = scoreVal
-
-        } else if (key === down && (pumbaaCurrentPosition + width <= cellCount - 1)) {
-          pumbaaCurrentPosition += width
-        } else {
-          simbaCurrentPosition = simbaStartPosition
-        }
-      } 
-    }addSimba(simbaCurrentPosition)
+      } else if (key === down && (pumbaaCurrentPosition + width <= cellCount - 1)) {
+        pumbaaCurrentPosition += width
+      } else {
+        simbaCurrentPosition = simbaStartPosition
+      }
+    } addSimba(simbaCurrentPosition)
     addTimon(timonCurrentPosition)
     addPumbaa(pumbaaCurrentPosition)
   }
-
 
 
 
@@ -386,45 +389,79 @@ function init() {
   // document.addEventListener('keyup', collisions)
 
 
-  // Sounds
+  // * Section 5: Modal pop ups for the start of the game and for loss of life
 
+  const loadingModal = document.querySelector('.modal-load')
+  console.log(loadingModal)
+  const playButton = document.getElementById('play')
+  const docBody = document.querySelector('.wrap')
 
+  function loadModal() {
+    loadingModal.style.display = 'flex'
+    docBody.style.background = 'rgba(0,0,0,0.75)'
+    console.log('display changed')
+  }
 
-
-
+  function closeModal() {
+    loadingModal.style.display = 'none'
+  }
 
   const themeTune = document.querySelector('#theme')
   console.log(themeTune)
   const startGame = document.querySelector('#start')
 
+  startGame.addEventListener('click', loadModal)
+  playButton.addEventListener('click', moveEnemies)
+  playButton.addEventListener('click', closeModal)
 
 
-  function playAudio() {
-    themeTune.src = '../Sounds/theme.wav'
-    console.log('started playing theme')
-    themeTune.play()
-    themeTune.currentTime = 0
-    int = setInterval(() => {
-      if (themeTune.currentTime > 9) {
-        themeTune.pause()
-      } themeTune.play()
-    }, 10000)
-    console.log('stopped playing theme')
+
+
+
+
+  // * Section 6: Sounds
+
+  // const themeTune = document.querySelector('#theme')
+  // console.log(themeTune)
+  // const startGame = document.querySelector('#start')
+
+
+  // Function to loop around the overall theme tune
+  // function playTheme() {
+  //   themeTune.src = '../Sounds/theme.wav'
+  //   console.log('started playing theme')
+  //   themeTune.play()
+  //   themeTune.currentTime = 0
+  //   int = setInterval(() => {
+  //     if (themeTune.currentTime > 9) {
+  //       themeTune.pause()
+  //     } themeTune.play()
+  //   }, 10000)
+  //   console.log('stopped playing theme')
+  // }
+
+
+  //startGame.addEventListener('click', playTheme)
+
+  const HyenaLaugh = document.querySelector('#hyena-laugh')
+
+  function hyenaSound() {
+    HyenaLaugh.src = '../Sounds/hyena-laugh.wav'
+    console.log('hyena laugh')
+    if (currentHyenaPositions.includes(simbaCurrentPosition)) {
+      HyenaLaugh.play()
+    }
   }
 
+ 
 
-  startGame.addEventListener('click', playAudio)
+
+
+
+
 
 
   createGrid()
-
-
-
-
-
-
-
-
 
 }
 
