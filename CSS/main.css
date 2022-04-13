@@ -291,11 +291,11 @@ h4 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 40%;
-  height: 30%;
+  width: 400px;
+  height: 200px;
   position: fixed;
-  top: 30%;
-  left: 30%;
+  top: 33%;
+  left: 36%;
   border-radius: 25px;
   display: flex;
   justify-content: center;
@@ -328,7 +328,7 @@ h4 {
   font-weight: bold;
 }
 
-
+/* Additional modal detail for Timon */
 .timon-pop {
   background: rgba(0,0,0,0.8);
   width: 100%;
@@ -340,6 +340,7 @@ h4 {
   flex-direction: row;
 }
 
+/* Additional modal detail for pumba */
 .pumbaa-pop {
   background: rgba(0,0,0,0.8);
   width: 100%;
@@ -349,4 +350,98 @@ h4 {
   top: 0;
   left: 0;
   flex-direction: row;
+}
+
+/* Pop up for game ending */
+.game-over {
+  background: rgba(0,0,0,0.8);
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-direction: row;
+}
+
+.end-content {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../Images/hyenas-game-over.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 400px;
+  height: 200px;
+  position: fixed;
+  top: 33%;
+  left: 36%;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffefd5;
+}
+
+.end-content h1, .end-content p, .end-content button {
+  margin: 10px 30px;
+}
+
+.end-content h1 {
+  text-transform: capitalize;
+  font-size: 40px;
+}
+
+#game-over-btn {
+  width: 140px;
+  height: 30px;
+  background-color: #ffefd5;
+  border: 1px black;
+  border-radius: 5px;
+}
+
+/* Pop-up for winning the game */
+.winning-modal {
+  background: rgba(0,0,0,0.8);
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-direction: row;
+}
+
+.win-content {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../Images/lion-king-win.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 600px;
+  height: 400px;
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: #ffefd5;
+}
+
+.win-content h1 {
+  font-size: 40px;
+  margin: 0;
+}
+
+.win-content p {
+  font-size: 25px;
+  margin: 0px 30px;
+}
+
+.win-content button {
+  width: 140px;
+  height: 30px;
+  background-color: #ffefd5;
+  border: 1px black;
+  border-radius: 5px;
 }

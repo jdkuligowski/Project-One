@@ -26,8 +26,12 @@ function init() {
   let highVal = highBox.innerText = 0
 
 
-  const livesSpan = document.querySelector('#livesModal')
-  let modalLives = livesSpan.innerText = 10
+  const livesSpan = document.querySelector('.livesModal')
+  const timonSpan = document.querySelector('.timLivesModal')
+  const pumSpan = document.querySelector('.pumLivesModal')
+  let modalLives = livesSpan.innerText = livesVal
+  let timLivesModal = timonSpan.innerText = livesVal
+  let pumLivesModal = pumSpan.innerText = livesVal
 
   // * Section 2: Create a grid and add the game characters to this * //
   function createGrid() {
@@ -299,17 +303,23 @@ function init() {
         62, 64, 65, 67, 68, 70, 71].concat(updatedWilde).
         concat(updatedScar).concat(updatedElephant).concat(updatedHyena)
       //First conditional statement determines which character is being used
-      if (obstacleArray.includes(simbaCurrentPosition)) {
+      if (livesVal === 0) {
+        closeSimbaModal()
+        closeTimonModal()
+        closePumbaaModal()
+        gameOver()
+        resetScores()
+      } else if (obstacleArray.includes(simbaCurrentPosition) && livesVal > 0) {
         openSimbaModal()
         removeSimba(simbaCurrentPosition)
         simbaCurrentPosition = simbaStartPosition
         addSimba(simbaCurrentPosition)
         livesVal = livesVal - 1
         livesBox.innerText = livesVal
-        modalLives = modalLives - 1
+        modalLives = livesVal
         livesSpan.innerText = modalLives
-        stopTheme()
-        clearInterval()
+        //clearInterval()
+        clearInterval(moveEnemies)
       } else if (obstacleArray.includes(timonCurrentPosition)) {
         openTimonModal()
         removeTimon(timonCurrentPosition)
@@ -317,10 +327,10 @@ function init() {
         addTimon(timonCurrentPosition)
         livesVal = livesVal - 1
         livesBox.innerText = livesVal
-        modalLives = modalLives - 1
-        livesSpan.innerText = modalLives
-        stopTheme()
-        clearInterval()
+        timLivesModal = livesBox.innerText
+        timonSpan.innerText = timLivesModal
+
+        //clearInterval()
       } else if (obstacleArray.includes(pumbaaCurrentPosition)) {
         openPumbaaModal()
         removePumbaa(pumbaaCurrentPosition)
@@ -328,10 +338,18 @@ function init() {
         addPumbaa(pumbaaCurrentPosition)
         livesVal = livesVal - 1
         livesBox.innerText = livesVal
-        modalLives = modalLives - 1
-        livesSpan.innerText = modalLives
-        stopTheme()
-        clearInterval()
+        pumLivesModal = livesBox.innerText
+        pumSpan.innerText = pumLivesModal
+        //clearInterval()
+      } else if (simbaCurrentPosition < width && pumbaaCurrentPosition < width && timonCurrentPosition < width) {
+        winGame()
+        resetScores()
+        removeSimba(simbaCurrentPosition)
+        removeTimon(timonCurrentPosition)
+        removePumbaa(pumbaaCurrentPosition)
+        pumbaaCurrentPosition = pumbaaStartPosition
+        simbaCurrentPosition = simbaStartPosition
+        timonCurrentPosition = timonStartPosition
       }
     }, 100)
   }
@@ -354,6 +372,7 @@ function init() {
     removePumbaa(pumbaaCurrentPosition)
     collisions()
     //  Second conditional statement determines which character is being used
+
     if (simbaCurrentPosition > width) {
 
 
@@ -417,12 +436,6 @@ function init() {
   }
 
 
-
-
- 
-  // document.addEventListener('keyup', collisions)
-
-
   // * Section 5: Modal pop ups for the start of the game and for loss of life
   // Start game modal
   const loadingModal = document.querySelector('.modal-load')
@@ -448,6 +461,11 @@ function init() {
   const simbaAgainBtn = document.querySelector('#go-again')
   const timonAgainBtn = document.querySelector('#tim-go-again')
   const pumbaAgainBtn = document.querySelector('#pumba-go-again')
+  const gameOverTag = document.querySelector('.game-over')
+  const btnRestart = document.querySelector('#game-over-btn')
+  console.log(btnRestart)
+  const winGametag = document.querySelector('.winning-modal')
+  const btnWin = document.querySelector('#new-game')
 
   function openSimbaModal() {
     loseLifeSimba.style.display = 'flex'
@@ -479,11 +497,31 @@ function init() {
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
   }
 
-  loadModal()
+  function gameOver() {
+    gameOverTag.style.display = 'flex'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+  }
 
+  function closeGameOver() {
+    gameOverTag.style.display = 'none'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+  }
 
+  function winGame() {
+    winGametag.style.display = 'flex'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+  }
 
+  function closeWinGame() {
+    winGametag.style.display = 'none'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+  }
 
+  function restartPositions() {
+    addSimba(simbaStartPosition)
+    addPumbaa(pumbaaStartPosition)
+    addTimon(timonStartPosition)
+  }
 
 
 
@@ -495,6 +533,7 @@ function init() {
   const themePause = document.querySelector('.theme-box')
   console.log(themePause)
   let themeInt
+  const winSong = document.querySelector('#winner')
 
   // Function to loop around the overall theme tune
   function playTheme() {
@@ -507,17 +546,26 @@ function init() {
       if (themeTune.currentTime > 24.5) {
         themeTune.pause()
       }
-    }, 20000)
+    }, 19500)
   }
 
   // Function to pause the tune 
-  function stopTheme() {
-    themeTune.pause()
-    clearInterval(themeInt)
+  // function stopTheme() {
+  //   themeTune.pause()
+  //   //clearInterval(themeInt)
+  // }
+
+  // 
+
+  // Function to play a song when the player wins
+  // function playWinSong() {
+  //   winSong.src = '../Sounds/circle-of-life.m4a'
+  //   winSong.play()
+  // }
+
+  function pauseWinSong() {
+    winSong.pause()
   }
-
-
-
 
   const HyenaLaugh = document.querySelector('#hyena-laugh')
 
@@ -529,8 +577,10 @@ function init() {
 
 
   // playButton.addEventListener('click', hyenaSound)
-  
+
+
   // * Section 7: Event Listeners //
+
   // Movement of characters around the board
   document.addEventListener('keydown', handleKeyDown)
 
@@ -544,28 +594,49 @@ function init() {
   // Button for simba specific modal
   simbaAgainBtn.addEventListener('click', () => {
     closeSimbaModal()
-    playTheme()
   })
-  
+
   // Button for Timon specific modal
   timonAgainBtn.addEventListener('click', () => {
     closeTimonModal()
-    playTheme()
   })
 
   // Button for Pumba specific modal
   pumbaAgainBtn.addEventListener('click', () => {
     closePumbaaModal()
-    playTheme() 
   })
 
+  // Button for game over modal
+  btnRestart.addEventListener('click', () => {
+    closeGameOver()
+    playTheme()
+    resetScores()
+    collisions()
+  })
+
+  //gameOver()
+
+  // Button to start game again after win
+  btnWin.addEventListener('click', () => {
+    closeWinGame()
+    pauseWinSong()
+    //playTheme()
+    resetScores()
+    restartPositions()
+  })
+
+  function resetScores() {
+    livesBox.innerText = livesVal = 10
+    scoreBox.innerText = scoreVal = 0
+    livesSpan.innerText = modalLives = 10
+  }
 
 
   // playButton.addEventListener('click', playTheme)
-  themePause.addEventListener('click', stopTheme)
+  //themePause.addEventListener('click', stopTheme)
 
   createGrid()
-
+  loadModal()
 }
 
 

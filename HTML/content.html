@@ -49,23 +49,23 @@
         to the Pride.</p>
     </section>
 
-    <section class = 'controls'>
-      <div class = 'theme-box'>
+    <section class='controls'>
+      <div class='theme-box'>
         <p>Theme</p>
         <img src="../Images/audio.png">
       </div>
 
-      <div class = 'movement-box'>
+      <div class='movement-box'>
         <p>Movement</p>
         <img src="../Images/audio.png">
       </div>
 
-      <div class = 'sfx-box'>
+      <div class='sfx-box'>
         <p>SFX</p>
         <img src="../Images/audio.png">
       </div>
 
-      <div class = 'all-box'>
+      <div class='all-box'>
         <p>All</p>
         <img src="../Images/audio.png">
       </div>
@@ -77,77 +77,96 @@
     <audio id="theme"></audio>
     <audio id="hyena-laugh"></audio>
     <audio id="trunk"></audio>
-
+    <audio id="winner"></audio>
   </section>
 </body>
+
+
+
+
+
 
 <section class="modal-load">
   <div class="modal-top">
     <h1 class='modal-title'>The Chronicles of Pride Rock</h1>
   </div>
 
-  <div class = modal-body>
-  <div class="modal-content">
+  <div class=modal-body>
+    <div class="modal-content">
 
-    
-    <h3 class='modal-detail'>Simba, Timone & Pumba are lost in the Pride Lands.
-      Help them get home to Pride Rock!</h3>
-    <h4>How to play</h4>
-    <p>Use your arrow keys to guide the characters around the enemies on the board.
-      For every character that reaches the other side, you will be awarded 100 points!
-    </p>
-    <button id="play" type="button">Let's Play!</button>
-  </div>
 
-  <div class="modal-image">
-    <img src="../Images/timon-simba-pumbaa-transparent.png" alt="characters">
-  </div>
+      <h3 class='modal-detail'>Simba, Timone & Pumba are lost in the Pride Lands.
+        Help them get home to Pride Rock!</h3>
+      <h4>How to play</h4>
+      <p>Use your arrow keys to guide the characters around the enemies on the board.
+        For every character that reaches the other side, you will be awarded 100 points!
+      </p>
+      <button id="play" type="button">Let's Play!</button>
+    </div>
+
+    <div class="modal-image">
+      <img src="../Images/timon-simba-pumbaa-transparent.png" alt="characters">
+    </div>
   </div>
   <div class="modal-footer"></div>
 </section>
 
-<section class = "simba-pop">
-<section class = "life-lost">
-  <div class = "life-left">
-    <h2>Bad Luck! You lose a life.</h2>
-    <p>You have <span id = 'livesModal'> </span> lives remaining.</p>
-    <button id = "go-again">Go again!</button>
-  </div>
-  
-  <div class = "life-image">
-    <img src="../Images/simba-cry.png" alt="simba cry">
-  </div>
-</section>
+<section class="simba-pop">
+  <section class="life-lost">
+    <div class="life-left">
+      <h2>Bad Luck! You lose a life.</h2>
+      <p>You have <span class='livesModal'> </span> lives remaining.</p>
+      <button id="go-again">Go again!</button>
+    </div>
+
+    <div class="life-image">
+      <img src="../Images/simba-cry.png" alt="simba cry">
+    </div>
+  </section>
 </section>
 
-<section class = "timon-pop">
-  <section class = "life-lost">
-    <div class = "life-left">
+<section class="timon-pop">
+  <section class="life-lost">
+    <div class="life-left">
       <h2>Bad Luck! You lose a life.</h2>
-      <p>You have <span id = 'livesModal'> </span> lives remaining.</p>
-      <button id = "tim-go-again">Go again!</button>
+      <p>You have <span class='timLivesModal'> </span> lives remaining.</p>
+      <button id="tim-go-again">Go again!</button>
     </div>
-    
-    <div class = "life-image">
+    <div class="life-image">
       <img src="../Images/timon-3.png" alt="timon">
     </div>
   </section>
-
 </section>
 
-<section class = "pumbaa-pop">
-  <section class = "life-lost">
-    <div class = "life-left">
+<section class="pumbaa-pop">
+  <section class="life-lost">
+    <div class="life-left">
       <h2>Bad Luck! You lose a life.</h2>
-      <p>You have <span id = 'livesModal'> </span> lives remaining.</p>
-      <button id = "pumba-go-again">Go again!</button>
+      <p>You have <span class='pumLivesModal'> </span> lives remaining.</p>
+      <button id="pumba-go-again">Go again!</button>
     </div>
-    
-    <div class = "life-image">
+
+    <div class="life-image">
       <img src="../Images/pumbaa-3.png" alt="pumbaa">
     </div>
   </section>
+</section>
 
+<section class="game-over">
+  <section class="end-content">
+    <h1>Game Over!</h1>
+    <p>You got lost in the elephant graveyard and ran out of lives</p>
+    <button id="game-over-btn">Try again!</button>
+  </section>
+</section>
+
+<section class="winning-modal">
+  <section class = "win-content">
+    <h1>Congratulations! You win!</h1>
+    <p>Well done, you got Simba, Timon and Pumbaa back to the safety of 
+      the Pride and scored <span id = 'final-points'> </span> points!</p>
+    <button id="new-game">Play again!</button>
+  </section>
 </section>
 
 </html>
