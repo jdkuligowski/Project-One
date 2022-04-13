@@ -279,6 +279,13 @@ function init() {
     moveWildebeest()
   }
 
+  function stopEnemies() {
+    clearInterval(wildeTimer)
+    clearInterval(elephantTimer)
+    clearInterval(hyenaTimer)
+    clearInterval(scarTimer)
+  }
+
   // * Section 3: Functions for removing players from previous square, so only one image appears
   // Add simba function
   function removeSimba(position) {
@@ -309,6 +316,10 @@ function init() {
         closePumbaaModal()
         gameOver()
         resetScores()
+        stopEnemies()
+        stopTheme()
+        resetPositions()
+        gameOverSound()
       } else if (obstacleArray.includes(simbaCurrentPosition) && livesVal > 0) {
         openSimbaModal()
         removeSimba(simbaCurrentPosition)
@@ -318,8 +329,7 @@ function init() {
         livesBox.innerText = livesVal
         modalLives = livesVal
         livesSpan.innerText = modalLives
-        //clearInterval()
-        clearInterval(moveEnemies)
+        stopEnemies()
       } else if (obstacleArray.includes(timonCurrentPosition)) {
         openTimonModal()
         removeTimon(timonCurrentPosition)
@@ -329,8 +339,7 @@ function init() {
         livesBox.innerText = livesVal
         timLivesModal = livesBox.innerText
         timonSpan.innerText = timLivesModal
-
-        //clearInterval()
+        stopEnemies()
       } else if (obstacleArray.includes(pumbaaCurrentPosition)) {
         openPumbaaModal()
         removePumbaa(pumbaaCurrentPosition)
@@ -340,16 +349,14 @@ function init() {
         livesBox.innerText = livesVal
         pumLivesModal = livesBox.innerText
         pumSpan.innerText = pumLivesModal
-        //clearInterval()
+        stopEnemies()
       } else if (simbaCurrentPosition < width && pumbaaCurrentPosition < width && timonCurrentPosition < width) {
         winGame()
         resetScores()
-        removeSimba(simbaCurrentPosition)
-        removeTimon(timonCurrentPosition)
-        removePumbaa(pumbaaCurrentPosition)
-        pumbaaCurrentPosition = pumbaaStartPosition
-        simbaCurrentPosition = simbaStartPosition
-        timonCurrentPosition = timonStartPosition
+        resetPositions()
+        stopEnemies()
+        stopTheme()
+        playWinSong()
       }
     }, 100)
   }
@@ -517,23 +524,27 @@ function init() {
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
   }
 
-  function restartPositions() {
+  function resetPositions() {
+    removePumbaa(pumbaaCurrentPosition)
+    removeSimba(simbaCurrentPosition)
+    removeTimon(timonCurrentPosition)
+    simbaCurrentPosition = simbaStartPosition
+    timonCurrentPosition = timonStartPosition
+    pumbaaCurrentPosition = pumbaaStartPosition
     addSimba(simbaStartPosition)
     addPumbaa(pumbaaStartPosition)
     addTimon(timonStartPosition)
   }
 
 
-
   // * Section 6: Sounds
 
   const themeTune = document.querySelector('#theme')
-  console.log(themeTune)
-  const startGame = document.querySelector('#start')
-  const themePause = document.querySelector('.theme-box')
-  console.log(themePause)
   let themeInt
   const winSong = document.querySelector('#winner')
+  const loseSong = document.querySelector('#not-fair')
+  console.log(loseSong)
+
 
   // Function to loop around the overall theme tune
   function playTheme() {
@@ -550,22 +561,36 @@ function init() {
   }
 
   // Function to pause the tune 
-  // function stopTheme() {
-  //   themeTune.pause()
-  //   //clearInterval(themeInt)
-  // }
+  function stopTheme() {
+    themeTune.pause()
+    clearInterval(themeInt)
+  }
 
   // 
 
   // Function to play a song when the player wins
-  // function playWinSong() {
-  //   winSong.src = '../Sounds/circle-of-life.m4a'
-  //   winSong.play()
-  // }
+  function playWinSong() {
+    winSong.src = '../Sounds/circle-of-life.m4a'
+    console.log(winSong.src)
+    winSong.currentTime = 0
+    winSong.play()
+  }
 
+  // Pause win song
   function pauseWinSong() {
     winSong.pause()
   }
+
+  // Game over sound
+  function gameOverSound(){
+    loseSong.src = '../Sounds/LifesNotFairIsIt.wav'
+    console.log(loseSong.src)
+    loseSong.currentTime = 0
+    loseSong.play()
+  }
+
+  // function scarSound
+
 
   const HyenaLaugh = document.querySelector('#hyena-laugh')
 
@@ -589,21 +614,25 @@ function init() {
     moveEnemies()
     closeModal()
     playTheme()
+    pauseWinSong()
   })
 
   // Button for simba specific modal
   simbaAgainBtn.addEventListener('click', () => {
     closeSimbaModal()
+    moveEnemies()
   })
 
   // Button for Timon specific modal
   timonAgainBtn.addEventListener('click', () => {
     closeTimonModal()
+    moveEnemies()
   })
 
   // Button for Pumba specific modal
   pumbaAgainBtn.addEventListener('click', () => {
     closePumbaaModal()
+    moveEnemies()
   })
 
   // Button for game over modal
@@ -611,7 +640,8 @@ function init() {
     closeGameOver()
     playTheme()
     resetScores()
-    collisions()
+    moveEnemies()
+    resetPositions()
   })
 
   //gameOver()
@@ -620,9 +650,9 @@ function init() {
   btnWin.addEventListener('click', () => {
     closeWinGame()
     pauseWinSong()
-    //playTheme()
+    playTheme()
     resetScores()
-    restartPositions()
+    moveEnemies()
   })
 
   function resetScores() {
@@ -631,9 +661,6 @@ function init() {
     livesSpan.innerText = modalLives = 10
   }
 
-
-  // playButton.addEventListener('click', playTheme)
-  //themePause.addEventListener('click', stopTheme)
 
   createGrid()
   loadModal()

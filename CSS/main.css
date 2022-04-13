@@ -115,6 +115,7 @@ footer {
 button {
   height: 20px;
   font-family: 'Alegreya SC', serif;
+  cursor: pointer;
 }
 
 /* Specific grid styling to use in JS */
@@ -291,7 +292,7 @@ h4 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 400px;
+  width: 450px;
   height: 200px;
   position: fixed;
   top: 33%;
@@ -338,6 +339,7 @@ h4 {
   top: 0;
   left: 0;
   flex-direction: row;
+  transition-timing-function: ease-in;
 }
 
 /* Additional modal detail for pumba */
@@ -369,7 +371,7 @@ h4 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 400px;
+  width: 450px;
   height: 200px;
   position: fixed;
   top: 33%;
