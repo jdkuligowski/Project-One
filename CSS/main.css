@@ -84,16 +84,23 @@ h2 {
   height: 40px;
   color: #ffefd5;
   justify-content: space-evenly;
+  margin-bottom: 5px;
 }
 
 .controls div {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin:0;
 }
 
 .controls img {
   height: 70%;
+  margin-left: 5px;
+}
+
+.controls p {
+  margin-right: 5px;
 }
 
 footer {
@@ -268,20 +275,29 @@ h4 {
 }
 
 /* Modal for when simba loses a life */
+.simba-pop {
+  background: rgba(0,0,0,0.8);
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-direction: row;
+}
+
 .life-lost {
   background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../Images/graveyard.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 90%;
-  height: 90%;
-  display: none;
+  width: 40%;
+  height: 30%;
   position: fixed;
-  top: 5%;
-  left: 5%;
-  bottom: 0;
+  top: 30%;
+  left: 30%;
   border-radius: 25px;
-  flex-direction: row;
+  display: flex;
   justify-content: center;
   align-items: center;
   color: #ffefd5;
@@ -312,3 +328,25 @@ h4 {
   font-weight: bold;
 }
 
+
+.timon-pop {
+  background: rgba(0,0,0,0.8);
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-direction: row;
+}
+
+.pumbaa-pop {
+  background: rgba(0,0,0,0.8);
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-direction: row;
+}

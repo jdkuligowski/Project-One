@@ -20,7 +20,7 @@ function init() {
   const levelBox = document.querySelector('#level-val')
   const highBox = document.querySelector('#high-val')
 
-  let livesVal = livesBox.innerText = 10 
+  let livesVal = livesBox.innerText = 10
   let scoreVal = scoreBox.innerText = 0
   let levelVal = levelBox.innerText = 1
   let highVal = highBox.innerText = 0
@@ -308,23 +308,30 @@ function init() {
         livesBox.innerText = livesVal
         modalLives = modalLives - 1
         livesSpan.innerText = modalLives
+        stopTheme()
         clearInterval()
       } else if (obstacleArray.includes(timonCurrentPosition)) {
-        alert('life lost!')
+        openTimonModal()
         removeTimon(timonCurrentPosition)
         timonCurrentPosition = timonStartPosition
         addTimon(timonCurrentPosition)
         livesVal = livesVal - 1
         livesBox.innerText = livesVal
-        //clearInterval()
+        modalLives = modalLives - 1
+        livesSpan.innerText = modalLives
+        stopTheme()
+        clearInterval()
       } else if (obstacleArray.includes(pumbaaCurrentPosition)) {
-        alert('life lost!')
+        openPumbaaModal()
         removePumbaa(pumbaaCurrentPosition)
         pumbaaCurrentPosition = pumbaaStartPosition
         addPumbaa(pumbaaCurrentPosition)
         livesVal = livesVal - 1
         livesBox.innerText = livesVal
-        //clearInterval()
+        modalLives = modalLives - 1
+        livesSpan.innerText = modalLives
+        stopTheme()
+        clearInterval()
       }
     }, 100)
   }
@@ -412,7 +419,7 @@ function init() {
 
 
 
-  document.addEventListener('keydown', handleKeyDown)
+ 
   // document.addEventListener('keyup', collisions)
 
 
@@ -422,12 +429,11 @@ function init() {
   console.log(loadingModal)
   const playButton = document.getElementById('play')
   const docBody = document.querySelector('body')
-  const goAgainBtn = document.querySelector('#go-again')
+
 
   function loadModal() {
     loadingModal.style.display = 'flex'
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url(../Images/pride_rock_no_animals.jpeg)'
-    console.log('display changed')
   }
 
   function closeModal() {
@@ -436,25 +442,45 @@ function init() {
   }
 
   // lose life modal
-  const loseLifeSimba = document.querySelector('.life-lost')
-  console.log(loseLifeSimba)
+  const loseLifeSimba = document.querySelector('.simba-pop')
+  const loseLifeTimon = document.querySelector('.timon-pop')
+  const lostLifePumbaa = document.querySelector('.pumbaa-pop')
+  const simbaAgainBtn = document.querySelector('#go-again')
+  const timonAgainBtn = document.querySelector('#tim-go-again')
+  const pumbaAgainBtn = document.querySelector('#pumba-go-again')
 
-  function openSimbaModal () {
+  function openSimbaModal() {
     loseLifeSimba.style.display = 'flex'
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
   }
 
-  function closeSimbaModal () {
+  function closeSimbaModal() {
     loseLifeSimba.style.display = 'none'
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
   }
 
-  //openSimbaModal()
+  function openTimonModal() {
+    loseLifeTimon.style.display = 'flex'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+  }
+
+  function closeTimonModal() {
+    loseLifeTimon.style.display = 'none'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+  }
+
+  function openPumbaaModal() {
+    lostLifePumbaa.style.display = 'flex'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+  }
+
+  function closePumbaaModal() {
+    lostLifePumbaa.style.display = 'none'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+  }
 
   loadModal()
-  playButton.addEventListener('click', moveEnemies)
-  playButton.addEventListener('click', closeModal)
-  goAgainBtn.addEventListener('click', closeSimbaModal)
+
 
 
 
@@ -468,31 +494,29 @@ function init() {
   const startGame = document.querySelector('#start')
   const themePause = document.querySelector('.theme-box')
   console.log(themePause)
+  let themeInt
 
   // Function to loop around the overall theme tune
   function playTheme() {
     themeTune.src = '../Sounds/theme-tune.m4a'
     themeTune.currentTime = 5.3
     themeTune.play()
-    int = setInterval(() => {
+    themeInt = setInterval(() => {
       themeTune.currentTime = 5.3
       themeTune.play()
       if (themeTune.currentTime > 24.5) {
         themeTune.pause()
-      } 
+      }
     }, 20000)
-    console.log('stopped playing theme')
   }
 
   // Function to pause the tune 
-  function stopTheme () {
+  function stopTheme() {
     themeTune.pause()
-    clearInterval()
+    clearInterval(themeInt)
   }
 
 
-  playButton.addEventListener('click', playTheme)
-  themePause.addEventListener('click',stopTheme)
 
 
   const HyenaLaugh = document.querySelector('#hyena-laugh')
@@ -505,17 +529,45 @@ function init() {
 
 
   // playButton.addEventListener('click', hyenaSound)
+  
+  // * Section 7: Event Listeners //
+  // Movement of characters around the board
+  document.addEventListener('keydown', handleKeyDown)
+
+  // Button to start or restart the game
+  playButton.addEventListener('click', () => {
+    moveEnemies()
+    closeModal()
+    playTheme()
+  })
+
+  // Button for simba specific modal
+  simbaAgainBtn.addEventListener('click', () => {
+    closeSimbaModal()
+    playTheme()
+  })
+  
+  // Button for Timon specific modal
+  timonAgainBtn.addEventListener('click', () => {
+    closeTimonModal()
+    playTheme()
+  })
+
+  // Button for Pumba specific modal
+  pumbaAgainBtn.addEventListener('click', () => {
+    closePumbaaModal()
+    playTheme() 
+  })
 
 
 
-
-
-
-
-
+  // playButton.addEventListener('click', playTheme)
+  themePause.addEventListener('click', stopTheme)
 
   createGrid()
 
 }
+
+
 
 window.addEventListener('DOMContentLoaded', init)
