@@ -361,10 +361,8 @@ function init() {
     }, 100)
   }
 
-  function stopKeys(event) {
-    const key = event.keyCode
-  }
 
+  
   // * Section 5: Enable movement around the board, award points and lose lifes for collisions 
   // Moving characters around
   function handleKeyDown(event) {
@@ -414,7 +412,7 @@ function init() {
       } else {
         console.log('invalid key movemenet')
       }
-    } else if (pumbaaCurrentPosition > width) {
+    } else if (pumbaaCurrentPosition > width - 1) {
 
       if (key === left && pumbaaCurrentPosition % width !== 0) {
         pumbaaCurrentPosition--
@@ -422,7 +420,7 @@ function init() {
       } else if (key === right && pumbaaCurrentPosition % width !== width - 1 && pumbaaCurrentPosition !== rockPositions[0] - 1) {
         pumbaaCurrentPosition++
 
-      } else if (key === up && (pumbaaCurrentPosition >= width  1)) {
+      } else if (key === up && (pumbaaCurrentPosition >= width )) {
         pumbaaCurrentPosition -= width
         scoreVal = scoreVal + 10
         scoreBox.innerText = scoreVal
@@ -502,7 +500,7 @@ function init() {
 
   function openSimbaModal() {
     loseLifeSimba.style.display = 'flex'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'    
   }
 
   function closeSimbaModal() {
@@ -606,9 +604,20 @@ function init() {
   }
 
   // * Section 9: Event Listeners //
+  // function stopKeys() {
+  //   document.onkeydown = function() {
+  //     return false
+  //   }
+  // }
+
+  
 
   // Movement of characters around the board
+  function enableKeys(){
   document.addEventListener('keydown', handleKeyDown)
+  }
+
+  enableKeys()
 
   // Button to start or restart the game
   playButton.addEventListener('click', () => {
