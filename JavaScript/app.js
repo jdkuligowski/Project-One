@@ -39,7 +39,7 @@ function init() {
   const simbaStartPosition = 93
   let simbaCurrentPosition = simbaStartPosition
   const simbaImage = document.createElement('img')
-  simbaImage.src = '../Images/simba-2.png'
+  simbaImage.src = 'Images/simba-2.png'
 
   function addSimba(position) {
     cells[position].classList.add(simbaClass)
@@ -52,7 +52,7 @@ function init() {
   let timonCurrentPosition = timonStartPosition
   // we need to add the image as an element so that it sits on top of other background images
   const timonImage = document.createElement('img')
-  timonImage.src = '../Images/timon-3.png'
+  timonImage.src = 'Images/timon-3.png'
 
   function addTimon(position) {
     cells[position].classList.add(timonClass) // adds a class so the image can be edited in css
@@ -64,7 +64,7 @@ function init() {
   const pumbaaStartPosition = 86
   let pumbaaCurrentPosition = pumbaaStartPosition
   const pumbaImage = document.createElement('img')
-  pumbaImage.src = '../Images/pumba.png'
+  pumbaImage.src = 'Images/pumba.png'
 
   function addPumbaa(position) {
     cells[position].classList.add(pumbaaClass)
@@ -482,12 +482,12 @@ function init() {
 
   function loadModal() {
     loadingModal.style.display = 'flex'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   function closeModal() {
     loadingModal.style.display = 'none'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   // lose life modals
@@ -500,32 +500,32 @@ function init() {
 
   function openSimbaModal() {
     loseLifeSimba.style.display = 'flex'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'    
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(Images/pride_rock_no_animals.jpeg)'    
   }
 
   function closeSimbaModal() {
     loseLifeSimba.style.display = 'none'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   function openTimonModal() {
     loseLifeTimon.style.display = 'flex'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   function closeTimonModal() {
     loseLifeTimon.style.display = 'none'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   function openPumbaaModal() {
     lostLifePumbaa.style.display = 'flex'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   function closePumbaaModal() {
     lostLifePumbaa.style.display = 'none'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   // Modals for restarting game on loss or win
@@ -536,22 +536,22 @@ function init() {
 
   function gameOver() {
     gameOverTag.style.display = 'flex'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   function closeGameOver() {
     gameOverTag.style.display = 'none'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   function winGame() {
     winGametag.style.display = 'flex'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   function closeWinGame() {
     winGametag.style.display = 'none'
-    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
+    docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(Images/pride_rock_no_animals.jpeg)'
   }
 
   // * Section 8: Sounds
@@ -564,7 +564,7 @@ function init() {
 
   // Function to loop around the overall theme tune
   function playTheme() {
-    themeTune.src = '../Sounds/theme-tune.m4a'
+    themeTune.src = 'Sounds/theme-tune.m4a'
     themeTune.currentTime = 5.3
     themeTune.play()
     themeInt = setInterval(() => {
@@ -584,7 +584,7 @@ function init() {
 
   // Function to play a song when the player wins
   function playWinSong() {
-    winSong.src = '../Sounds/circle-of-life.m4a'
+    winSong.src = 'Sounds/circle-of-life.m4a'
     console.log(winSong.src)
     winSong.currentTime = 0
     winSong.play()
@@ -597,7 +597,7 @@ function init() {
 
   // Game over sound
   function gameOverSound() {
-    loseSong.src = '../Sounds/LifesNotFairIsIt.wav'
+    loseSong.src = 'Sounds/LifesNotFairIsIt.wav'
     console.log(loseSong.src)
     loseSong.currentTime = 0
     loseSong.play()
