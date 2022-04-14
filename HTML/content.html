@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>The Chronicles of Pride Rock</title>
+  <link rel="stylesheet" href="../CSS/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@400;700&display=swap" rel="stylesheet">
+  <script src="../JavaScript/app.js" charset="utf-8"></script>
+</head>
+
+<!-- Section 1: Main game section containing everything you see on the game page -->
+<body>
+
+    <header>
+      <h1>The Chronicles of Pride Rock</h1>
+    </header>
+
+    <section class="content">
+      <div class="lives">
+        <h3>Lives: <span id="lives-val"></span></h3>
+      </div>
+      <div class="score">
+        <h3>Score: <span id="score-val"></span></h3>
+      </div>
+      <div class="level">
+        <h3>Level: <span id="level-val"></span></h3>
+      </div>
+      <div class="high-score">
+        <h3>High Score: <span id="high-val"></span></h3>
+      </div>
+    </section>
+
+    <main>
+      <div class="grid">
+      </div>
+    </main>
+
+    <section id="instructions">
+      <h2>How to play</h2>
+      <p>Using your arrow keys, get Simba, Timon
+        and Pumbaa away from danger and back to the Pride. Zazu will
+        help you get across the water and take you to safety when
+        you reach the other side! 10 points will be awarded for every 
+        step closer to the pride.</p>
+    </section>
+
+    <section class='controls'>
+      <div class='theme-box'>
+        <p>Theme</p>
+        <img src="../Images/audio.png">
+      </div>
+
+      <div class='movement-box'>
+        <p>Movement</p>
+        <img src="../Images/audio.png">
+      </div>
+
+      <div class='sfx-box'>
+        <p>SFX</p>
+        <img src="../Images/audio.png">
+      </div>
+
+      <div class='all-box'>
+        <p>All</p>
+        <img src="../Images/audio.png">
+      </div>
+    </section>
+
+    <footer>
+      <p>raspberry kuli games inc.</p>
+    </footer>
+    <audio id="theme"></audio>
+    <audio id="hyena-laugh"></audio>
+    <audio id="trunk"></audio>
+    <audio id="winner"></audio>
+    <audio id = "not-fair"></audio>
+    <audio id = "no-king"></audio>
+    <audio id="die-for"></audio>
+</body>
+
+<!-- Section 2: Modals - pop-ups for winning, losing and losing lives  -->
+
+<!-- Modal 1: Shown on page load to start the game -->
+<section class="modal-load">
+  <div class="modal-top">
+    <h1 class='modal-title'>The Chronicles of Pride Rock</h1>
+  </div>
+
+  <div class=modal-body>
+    <div class="modal-content">
+      <h3 class='modal-detail'>Simba, Timone & Pumba are lost in the Pride Lands.
+        Help them get home to Pride Rock!</h3>
+      <h4>How to play</h4>
+      <p>Using your arrow keys, get Simba, Timon
+        and Pumbaa away from danger and back to the Pride. Zazu will
+        help you get across the water and take you to safety when
+        you reach the other side! 10 points will be awarded for every 
+        step closer to the pride.
+      </p>
+      <button id="play" type="button">Let's Play!</button>
+    </div>
+
+    <div class="modal-image">
+      <img src="../Images/timon-simba-pumbaa-transparent.png" alt="characters">
+    </div>
+  </div>
+  <div class="modal-footer"></div>
+</section>
+
+<!-- Modal 2a: Pop up for when simba gets hit -->
+<section class="simba-pop">
+  <section class="life-lost">
+    <div class="life-left">
+      <h2>Bad Luck! You lose a life.</h2>
+      <p>You have <span class='livesModal'> </span> lives remaining.</p>
+      <button id="go-again">Go again!</button>
+    </div>
+
+    <div class="life-image">
+      <img src="../Images/simba-cry.png" alt="simba cry">
+    </div>
+  </section>
+</section>
+
+<!-- Modal 2b: Pop up for when Timon gets hit -->
+<section class="timon-pop">
+  <section class="life-lost">
+    <div class="life-left">
+      <h2>Bad Luck! You lose a life.</h2>
+      <p>You have <span class='timLivesModal'> </span> lives remaining.</p>
+      <button id="tim-go-again">Go again!</button>
+    </div>
+    <div class="life-image">
+      <img src="../Images/timon-3.png" alt="timon">
+    </div>
+  </section>
+</section>
+
+<!-- Modal 2c: Pop up for when Pumbaa gets hit -->
+<section class="pumbaa-pop">
+  <section class="life-lost">
+    <div class="life-left">
+      <h2>Bad Luck! You lose a life.</h2>
+      <p>You have <span class='pumLivesModal'> </span> lives remaining.</p>
+      <button id="pumba-go-again">Go again!</button>
+    </div>
+
+    <div class="life-image">
+      <img src="../Images/pumbaa-3.png" alt="pumbaa">
+    </div>
+  </section>
+</section>
+
+<!-- Modal 3: Pop up for when the player runs out of lives -->
+<section class="game-over">
+  <section class="end-content">
+    <h1>Game Over!</h1>
+    <p>You got lost in the elephant graveyard and ran out of lives</p>
+    <button id="game-over-btn">Try again!</button>
+  </section>
+</section>
+
+<!-- Modal 4: Pop up for when the player wins the game -->
+<section class="winning-modal">
+  <section class = "win-content">
+    <h1>Congratulations! You win!</h1>
+    <p>Well done, you got Simba, Timon and Pumbaa back to the safety of 
+      the Pride.</p>
+    <button id="new-game">Play again!</button>
+  </section>
+</section>
+</html>
