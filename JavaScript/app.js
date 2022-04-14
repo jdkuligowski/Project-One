@@ -1,6 +1,6 @@
 function init() {
 
-  // ? Define Elements
+  // * Section 1: Create a grid and add the game characters to this * //
   // Grid Container
   const grid = document.querySelector('.grid')
   console.log(grid)
@@ -11,38 +11,15 @@ function init() {
   const cellCount = width * height
   const cells = []
 
-  // Timing variables
-  let obstacleTimer
-
-  // Score Traking
-  const livesBox = document.querySelector('#lives-val')
-  const scoreBox = document.querySelector('#score-val')
-  const levelBox = document.querySelector('#level-val')
-  const highBox = document.querySelector('#high-val')
-
-  let livesVal = livesBox.innerText = 10
-  let scoreVal = scoreBox.innerText = 0
-  let levelVal = levelBox.innerText = 1
-  let highVal = highBox.innerText = 0
-
-
-  const livesSpan = document.querySelector('.livesModal')
-  const timonSpan = document.querySelector('.timLivesModal')
-  const pumSpan = document.querySelector('.pumLivesModal')
-  let modalLives = livesSpan.innerText = livesVal
-  let timLivesModal = timonSpan.innerText = livesVal
-  let pumLivesModal = pumSpan.innerText = livesVal
-
-  // * Section 2: Create a grid and add the game characters to this * //
+  // Function to build the grid
   function createGrid() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
-      // cell.innerText = cell.id = i
       grid.appendChild(cell)
       cells.push(cell)
-
     }
-    waterRow1(); waterRow2()
+    // addSand()
+    waterRow1(); waterRow2(); waterRow3()
     addHyena()
     addScar()
     addWildebeest()
@@ -55,44 +32,48 @@ function init() {
     collisions()
   }
 
-
   // * Section 2: Add in characters that will be used to move around the board * //
   // Add simba 
   const simbaClass = 'simba'
   console.log(simbaClass)
   const simbaStartPosition = 93
   let simbaCurrentPosition = simbaStartPosition
-  // const simbaImage = document.createElement('img')
-  // simbaImage.src = '../Images/simba-2.png'
-  //console.log(simba)
-
+  const simbaImage = document.createElement('img')
+  simbaImage.src = '../Images/simba-2.png'
 
   function addSimba(position) {
     cells[position].classList.add(simbaClass)
-    // simbaPosition.appendChild(simbaImage)
+    cells[position].appendChild(simbaImage)
   }
 
   // Add timon 
   const timonClass = 'timon'
   const timonStartPosition = 89
   let timonCurrentPosition = timonStartPosition
+  // we need to add the image as an element so that it sits on top of other background images
+  const timonImage = document.createElement('img')
+  timonImage.src = '../Images/timon-3.png'
 
   function addTimon(position) {
-    cells[position].classList.add(timonClass)
+    cells[position].classList.add(timonClass) // adds a class so the image can be edited in css
+    cells[position].appendChild(timonImage) // adds the image as an element so that the image sits on top of other background images
   }
 
   // Add Pumbaa 
   const pumbaaClass = 'pumbaa'
   const pumbaaStartPosition = 86
   let pumbaaCurrentPosition = pumbaaStartPosition
+  const pumbaImage = document.createElement('img')
+  pumbaImage.src = '../Images/pumba.png'
 
   function addPumbaa(position) {
     cells[position].classList.add(pumbaaClass)
+    cells[position].appendChild(pumbaImage)
   }
 
   // Add Zazu
   const zazuClass = 'zazu'
-  const zazuPositions = [25, 28, 31, 34, 60, 63, 66, 69]
+  const zazuPositions = [0, 2, 5, 6,9,11,25, 28, 31, 34, 60, 63, 66, 69]
 
   function addZazu() {
     for (let i = 0; i < zazuPositions.length; i++) {
@@ -110,17 +91,32 @@ function init() {
     }
   }
 
-  // * Section 2b: Add in obstacles that will cause player to lose a life * //
+  // Add sand to the finish area
+  // const sandClass = 'finish'
+
+  // function addSand() {
+  //   for (let i = 0; i < width; i++) {
+  //     cells[i].classList.add(sandClass)
+  //   }
+  // }
+
+  // * Section 3: Add in obstacles that will cause player to lose a life * //
   // Add Water
   const waterClass = 'water'
 
   function waterRow1() {
-    for (let i = width * 2; i < (width * 3); i++) {
+    for (let i = 0; i < width; i++) {
       cells[i].classList.add(waterClass)
     }
   }
 
   function waterRow2() {
+    for (let i = width * 2; i < (width * 3); i++) {
+      cells[i].classList.add(waterClass)
+    }
+  }
+
+  function waterRow3() {
     for (let i = width * 5; i < (width * 6); i++) {
       cells[i].classList.add(waterClass)
     }
@@ -159,9 +155,8 @@ function init() {
           cells[updatedHyena[i]].classList.add(hyenaClass)
         }
       }
-    }, 1500)
+    }, 900)
   }
-
 
   // Add Scar and move him around
   const scarClass = 'scar'
@@ -195,23 +190,24 @@ function init() {
           cells[updatedScar[i]].classList.add(scarClass)
         }
       }
-    }, 1500)
+    }, 900)
   }
 
   // Add Wildebeests and allow them to move around
-
   const wildeClass = 'wildebeest'
   const wildeStarting = [83, 81, 79, 77, 75, 73]
   let wildeCurrentPosition = wildeStarting
   let updatedWilde = wildeCurrentPosition
   let wildeTimer
 
+  // Function to add a wildebeest to the board
   function addWildebeest() {
     for (let i = 0; i < 6; i++) {
       cells[wildeCurrentPosition[i]].classList.add(wildeClass)
     }
   }
 
+  // Function that will move the wildebeest around
   function moveWildebeest() {
     collisions()
     wildeTimer = setInterval(() => {
@@ -232,23 +228,24 @@ function init() {
           cells[updatedWilde[i]].classList.add(wildeClass)
         }
       }
-    }, 1500)
+    }, 700)
   }
 
   // Add Elephants and allow them to move around
-
   const elephantClass = 'elephant'
   const elephantStarting = [59, 56, 53, 50]
   let elephantCurrentPosition = elephantStarting
   let updatedElephant = elephantCurrentPosition
   let elephantTimer
 
+  // Function to add array of elephants to the board
   function addElephant() {
     for (let i = 0; i < 4; i++) {
       cells[elephantStarting[i]].classList.add(elephantClass)
     }
   }
 
+  // Function that will move the elephants around
   function moveElephant() {
     collisions()
     elephantTimer = setInterval(() => {
@@ -269,9 +266,10 @@ function init() {
           cells[updatedElephant[i]].classList.add(elephantClass)
         }
       }
-    }, 1500)
+    }, 900)
   }
 
+  // Function to call to move all of the enemies around the board
   function moveEnemies() {
     moveElephant()
     moveHyena()
@@ -279,6 +277,7 @@ function init() {
     moveWildebeest()
   }
 
+  // Function to call to stop enemies moving around when the game pauses or stops
   function stopEnemies() {
     clearInterval(wildeTimer)
     clearInterval(elephantTimer)
@@ -286,27 +285,28 @@ function init() {
     clearInterval(scarTimer)
   }
 
-  // * Section 3: Functions for removing players from previous square, so only one image appears
-  // Add simba function
+  // Function to remove simba from his position - used when moving around
   function removeSimba(position) {
     cells[position].classList.remove(simbaClass)
   }
-  // Add timon function
+  // Function to remove Timon from his position - used when moving around
   function removeTimon(position) {
     cells[position].classList.remove(timonClass)
   }
-  // Add Pumbaa function
+  // Function to remove Pumbaa from his position - used when moving around
   function removePumbaa(position) {
     cells[position].classList.remove(pumbaaClass)
   }
 
-  // const waterObstacles = 
-  let collisionTimer
+  // * Section 4: Functions that dictate what happens when collisions occur
+  //  Lives lost, different modals appear, music stops
 
+  let collisionTimer //defining the interval variable
 
+  // Function that determines what happens when collisions happen
   function collisions() {
     collisionTimer = setInterval(() => {
-      const obstacleArray = [24, 26, 27, 29, 30, 32, 33, 35, 61,
+      const obstacleArray = [1,3,4,7,8,10,24, 26, 27, 29, 30, 32, 33, 35, 61,
         62, 64, 65, 67, 68, 70, 71].concat(updatedWilde).
         concat(updatedScar).concat(updatedElephant).concat(updatedHyena)
       //First conditional statement determines which character is being used
@@ -361,12 +361,11 @@ function init() {
     }, 100)
   }
 
+  function stopKeys(event) {
+    const key = event.keyCode
+  }
 
-
-
-
-
-  // * Section 4: Enable movement around the board, award points and lose lifes for collisions 
+  // * Section 5: Enable movement around the board, award points and lose lifes for collisions 
   // Moving characters around
   function handleKeyDown(event) {
     const key = event.keyCode
@@ -378,13 +377,9 @@ function init() {
     removeTimon(timonCurrentPosition)
     removePumbaa(pumbaaCurrentPosition)
     collisions()
-    //  Second conditional statement determines which character is being used
-
+    //  First conditional statement determines which character is being used
     if (simbaCurrentPosition > width) {
-
-
-
-      // Third conditional statement determins the movement of the current character around the grid
+      // Second conditional statement determins the movement of the current character around the grid
       if (key === left && simbaCurrentPosition % width !== 0 && simbaCurrentPosition !== rockPositions[1] + 1) {
         simbaCurrentPosition--
 
@@ -427,7 +422,7 @@ function init() {
       } else if (key === right && pumbaaCurrentPosition % width !== width - 1 && pumbaaCurrentPosition !== rockPositions[0] - 1) {
         pumbaaCurrentPosition++
 
-      } else if (key === up && (pumbaaCurrentPosition >= width)) {
+      } else if (key === up && (pumbaaCurrentPosition >= width  1)) {
         pumbaaCurrentPosition -= width
         scoreVal = scoreVal + 10
         scoreBox.innerText = scoreVal
@@ -435,21 +430,57 @@ function init() {
       } else if (key === down && (pumbaaCurrentPosition + width <= cellCount - 1)) {
         pumbaaCurrentPosition += width
       }
-    } else {
-      simbaCurrentPosition = simbaStartPosition
     } addSimba(simbaCurrentPosition)
     addTimon(timonCurrentPosition)
     addPumbaa(pumbaaCurrentPosition)
   }
 
+  // `Function to reset the character positions when characters die
+  function resetPositions() {
+    removePumbaa(pumbaaCurrentPosition)
+    removeSimba(simbaCurrentPosition)
+    removeTimon(timonCurrentPosition)
+    simbaCurrentPosition = simbaStartPosition
+    timonCurrentPosition = timonStartPosition
+    pumbaaCurrentPosition = pumbaaStartPosition
+    addSimba(simbaStartPosition)
+    addPumbaa(pumbaaStartPosition)
+    addTimon(timonStartPosition)
+  }
 
-  // * Section 5: Modal pop ups for the start of the game and for loss of life
+  // * Section 6 - enable scoring within the game and update this in different locations
+  // Score Tracking
+  const livesBox = document.querySelector('#lives-val')
+  const scoreBox = document.querySelector('#score-val')
+  const levelBox = document.querySelector('#level-val')
+  const highBox = document.querySelector('#high-val')
+
+  let livesVal = livesBox.innerText = 10
+  let scoreVal = scoreBox.innerText = 0
+  let levelVal = levelBox.innerText = 1
+  let highVal = highBox.innerText = 0
+
+  const livesSpan = document.querySelector('.livesModal')
+  const timonSpan = document.querySelector('.timLivesModal')
+  const pumSpan = document.querySelector('.pumLivesModal')
+  let modalLives = livesSpan.innerText = livesVal
+  let timLivesModal = timonSpan.innerText = livesVal
+  let pumLivesModal = pumSpan.innerText = livesVal
+
+  // Function to reset scores back to the values at the start of the game
+  function resetScores() {
+    livesBox.innerText = livesVal = 10
+    scoreBox.innerText = scoreVal = 0
+    livesSpan.innerText = modalLives = 10
+  }
+
+
+  // * Section 7: Modal pop ups for the start of the game and for loss of life
   // Start game modal
   const loadingModal = document.querySelector('.modal-load')
   console.log(loadingModal)
   const playButton = document.getElementById('play')
   const docBody = document.querySelector('body')
-
 
   function loadModal() {
     loadingModal.style.display = 'flex'
@@ -461,18 +492,13 @@ function init() {
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
   }
 
-  // lose life modal
+  // lose life modals
   const loseLifeSimba = document.querySelector('.simba-pop')
   const loseLifeTimon = document.querySelector('.timon-pop')
   const lostLifePumbaa = document.querySelector('.pumbaa-pop')
   const simbaAgainBtn = document.querySelector('#go-again')
   const timonAgainBtn = document.querySelector('#tim-go-again')
   const pumbaAgainBtn = document.querySelector('#pumba-go-again')
-  const gameOverTag = document.querySelector('.game-over')
-  const btnRestart = document.querySelector('#game-over-btn')
-  console.log(btnRestart)
-  const winGametag = document.querySelector('.winning-modal')
-  const btnWin = document.querySelector('#new-game')
 
   function openSimbaModal() {
     loseLifeSimba.style.display = 'flex'
@@ -504,6 +530,12 @@ function init() {
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
   }
 
+  // Modals for restarting game on loss or win
+  const gameOverTag = document.querySelector('.game-over')
+  const btnRestart = document.querySelector('#game-over-btn')
+  const winGametag = document.querySelector('.winning-modal')
+  const btnWin = document.querySelector('#new-game')
+
   function gameOver() {
     gameOverTag.style.display = 'flex'
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../Images/pride_rock_no_animals.jpeg)'
@@ -524,27 +556,13 @@ function init() {
     docBody.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../Images/pride_rock_no_animals.jpeg)'
   }
 
-  function resetPositions() {
-    removePumbaa(pumbaaCurrentPosition)
-    removeSimba(simbaCurrentPosition)
-    removeTimon(timonCurrentPosition)
-    simbaCurrentPosition = simbaStartPosition
-    timonCurrentPosition = timonStartPosition
-    pumbaaCurrentPosition = pumbaaStartPosition
-    addSimba(simbaStartPosition)
-    addPumbaa(pumbaaStartPosition)
-    addTimon(timonStartPosition)
-  }
-
-
-  // * Section 6: Sounds
+  // * Section 8: Sounds
 
   const themeTune = document.querySelector('#theme')
   let themeInt
   const winSong = document.querySelector('#winner')
   const loseSong = document.querySelector('#not-fair')
   console.log(loseSong)
-
 
   // Function to loop around the overall theme tune
   function playTheme() {
@@ -566,8 +584,6 @@ function init() {
     clearInterval(themeInt)
   }
 
-  // 
-
   // Function to play a song when the player wins
   function playWinSong() {
     winSong.src = '../Sounds/circle-of-life.m4a'
@@ -582,29 +598,14 @@ function init() {
   }
 
   // Game over sound
-  function gameOverSound(){
+  function gameOverSound() {
     loseSong.src = '../Sounds/LifesNotFairIsIt.wav'
     console.log(loseSong.src)
     loseSong.currentTime = 0
     loseSong.play()
   }
 
-  // function scarSound
-
-
-  const HyenaLaugh = document.querySelector('#hyena-laugh')
-
-  // function hyenaSound() {
-  //   HyenaLaugh.src = '../Sounds/hyena-laugh.wav'
-  //   console.log('hyena laugh')
-  //   HyenaLaugh.play()
-  //   }
-
-
-  // playButton.addEventListener('click', hyenaSound)
-
-
-  // * Section 7: Event Listeners //
+  // * Section 9: Event Listeners //
 
   // Movement of characters around the board
   document.addEventListener('keydown', handleKeyDown)
@@ -644,8 +645,6 @@ function init() {
     resetPositions()
   })
 
-  //gameOver()
-
   // Button to start game again after win
   btnWin.addEventListener('click', () => {
     closeWinGame()
@@ -655,15 +654,11 @@ function init() {
     moveEnemies()
   })
 
-  function resetScores() {
-    livesBox.innerText = livesVal = 10
-    scoreBox.innerText = scoreVal = 0
-    livesSpan.innerText = modalLives = 10
-  }
+  // * Section 10: Elements that should be loaded on page load //
 
+  createGrid() // Build the playing arena and add characters
+  loadModal() // Load modal for the start of the game thatg overlays the playing arena
 
-  createGrid()
-  loadModal()
 }
 
 

@@ -11,9 +11,9 @@
   <script src="../JavaScript/app.js" charset="utf-8"></script>
 </head>
 
+<!-- Section 1: Main game section containing everything you see on the game page -->
 <body>
 
-  <section class='wrap'>
     <header>
       <h1>The Chronicles of Pride Rock</h1>
     </header>
@@ -35,9 +35,6 @@
 
     <main>
       <div class="grid">
-        <!-- <div class="simba">
-        <img src="../Images/simba-2.png" alt="simba">
-      </div> -->
       </div>
     </main>
 
@@ -81,14 +78,11 @@
     <audio id = "not-fair"></audio>
     <audio id = "no-king"></audio>
     <audio id="die-for"></audio>
-  </section>
 </body>
 
+<!-- Section 2: Modals - pop-ups for winning, losing and losing lives  -->
 
-
-
-
-
+<!-- Modal 1: Shown on page load to start the game -->
 <section class="modal-load">
   <div class="modal-top">
     <h1 class='modal-title'>The Chronicles of Pride Rock</h1>
@@ -96,8 +90,6 @@
 
   <div class=modal-body>
     <div class="modal-content">
-
-
       <h3 class='modal-detail'>Simba, Timone & Pumba are lost in the Pride Lands.
         Help them get home to Pride Rock!</h3>
       <h4>How to play</h4>
@@ -114,6 +106,7 @@
   <div class="modal-footer"></div>
 </section>
 
+<!-- Modal 2a: Pop up for when simba gets hit -->
 <section class="simba-pop">
   <section class="life-lost">
     <div class="life-left">
@@ -128,6 +121,7 @@
   </section>
 </section>
 
+<!-- Modal 2b: Pop up for when Timon gets hit -->
 <section class="timon-pop">
   <section class="life-lost">
     <div class="life-left">
@@ -141,6 +135,7 @@
   </section>
 </section>
 
+<!-- Modal 2c: Pop up for when Pumbaa gets hit -->
 <section class="pumbaa-pop">
   <section class="life-lost">
     <div class="life-left">
@@ -155,6 +150,7 @@
   </section>
 </section>
 
+<!-- Modal 3: Pop up for when the player runs out of lives -->
 <section class="game-over">
   <section class="end-content">
     <h1>Game Over!</h1>
@@ -163,6 +159,7 @@
   </section>
 </section>
 
+<!-- Modal 4: Pop up for when the player wins the game -->
 <section class="winning-modal">
   <section class = "win-content">
     <h1>Congratulations! You win!</h1>
@@ -171,5 +168,4 @@
     <button id="new-game">Play again!</button>
   </section>
 </section>
-
 </html>

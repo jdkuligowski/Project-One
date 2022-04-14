@@ -1,9 +1,7 @@
-/* Main body styling */
-
+/* *Section 1: Main body styling */
 body, html {
   height: 100%;
   width: 100%;
-  /* opacity: 1; */
   font-family: 'Alegreya SC', serif;
 }
 
@@ -16,13 +14,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
-  /* opacity: 1; */
   flex-direction: column;
   justify-content: center;
-}
-
-.wrap {
-  background: none;
 }
 
 header, .content, #instructions, main, .controls, footer {
@@ -118,8 +111,7 @@ button {
   cursor: pointer;
 }
 
-/* Specific grid styling to use in JS */
-
+/* * Section 2: Specific grid styling to use in JS */
 .grid {
   display: flex;
   align-items: center;
@@ -140,30 +132,17 @@ button {
   background-color: rgba(120,196,215,0.7)
 }
 
-/* Images */
-.grid div.simba {
-  background-image: url("../Images/simba-2.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-/* img {
-  background-size: cover;
-  position: absolute;
-} */
-
-.grid div.timon {
-  background-image: url('../Images/timon-3.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+/* * Section 3: Images */
+.grid div.simba img {
+  height: 100%;
 }
 
-.grid div.pumbaa {
-  background-image: url('../Images/pumba.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+.grid div.timon img{
+  height: 100%;
+}
+
+.grid div.pumbaa img {
+  height: 100%;
 }
 
 .grid div.scar {
@@ -209,7 +188,7 @@ button {
 }
 
 
-/* * Modals * */
+/* * Section 4: Modals * */
 /* Page load modal to start game  */
 .modal-load {
   background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../Images/pride_rock_no_animals.jpeg');
@@ -275,8 +254,8 @@ h4 {
   opacity: 0.75;
 }
 
-/* Modal for when simba loses a life */
-.simba-pop {
+/* Load background for all other modals to make the backgdrop dimmed  */
+.simba-pop, .timon-pop, .pumbaa-pop, .winning-modal, .game-over {
   background: rgba(0,0,0,0.8);
   width: 100%;
   height: 100%;
@@ -287,6 +266,7 @@ h4 {
   flex-direction: row;
 }
 
+/* Modal for when characters lose a life */
 .life-lost {
   background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../Images/graveyard.png');
   background-size: cover;
@@ -329,43 +309,7 @@ h4 {
   font-weight: bold;
 }
 
-/* Additional modal detail for Timon */
-.timon-pop {
-  background: rgba(0,0,0,0.8);
-  width: 100%;
-  height: 100%;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  flex-direction: row;
-  transition-timing-function: ease-in;
-}
-
-/* Additional modal detail for pumba */
-.pumbaa-pop {
-  background: rgba(0,0,0,0.8);
-  width: 100%;
-  height: 100%;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  flex-direction: row;
-}
-
 /* Pop up for game ending */
-.game-over {
-  background: rgba(0,0,0,0.8);
-  width: 100%;
-  height: 100%;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  flex-direction: row;
-}
-
 .end-content {
   background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../Images/hyenas-game-over.jpeg');
   background-size: cover;
@@ -401,17 +345,6 @@ h4 {
 }
 
 /* Pop-up for winning the game */
-.winning-modal {
-  background: rgba(0,0,0,0.8);
-  width: 100%;
-  height: 100%;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  flex-direction: row;
-}
-
 .win-content {
   background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../Images/lion-king-win.jpeg');
   background-size: cover;
